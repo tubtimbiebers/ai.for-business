@@ -2,35 +2,6 @@
  * SALTCASE AI ACADEMY — Interactive Engine & Component Logic
  */
 
-// 25 Complete Courses Dataset
-const COURSES_DATA = [
-  { id: 1, title: 'AI Mindset for Business', track: 'Foundation', desc: 'เข้าใจความสามารถ ข้อจำกัด ความเสี่ยง และวิธีคิดแบบ Business-first', deliverable: 'AI opportunity list + personal usage rules' },
-  { id: 2, title: 'AI Tools Landscape for Business', track: 'Foundation', desc: 'เลือก ChatGPT, Gemini, Claude, NotebookLM, Image/Video และ Automation ให้ตรงงาน', deliverable: 'Tool-to-task matrix' },
-  { id: 3, title: 'Prompt Architecture for Business', track: 'Foundation', desc: 'เปลี่ยน Prompt แบบลองผิดลองถูกให้เป็นคำสั่งที่ทำซ้ำและส่งต่อในทีมได้', deliverable: 'Prompt / Skill library' },
-  { id: 4, title: 'AI Research & Decision Intelligence', track: 'Foundation', desc: 'Research ตลาด คู่แข่ง ประเด็นสำคัญ และสังเคราะห์เป็นข้อมูลเพื่อการตัดสินใจ', deliverable: 'Research brief + decision memo' },
-  { id: 5, title: 'AI Personal Assistant & Knowledge System', track: 'Foundation', desc: 'สร้างผู้ช่วยส่วนตัว/ทีมบน SOP และ Knowledge ที่เชื่อถือได้', deliverable: 'Assistant blueprint' },
-  { id: 6, title: 'AI Office Productivity', track: 'Productivity', desc: 'Email, Meeting, Report, Proposal, Presentation และงานความรู้ประจำวัน', deliverable: 'Office workflow pack' },
-  { id: 7, title: 'AI Workflow Design', track: 'Productivity', desc: 'Map กระบวนการเดิม หา Friction และออกแบบ AI + Human Checkpoint', deliverable: 'Before / after workflow' },
-  { id: 8, title: 'AI Automation for Business', track: 'Productivity', desc: 'เชื่อม Forms, Sheets, Calendar, LINE, No-code และ AI เพื่อลดงานส่งต่อ', deliverable: 'Automation prototype / roadmap' },
-  { id: 9, title: 'AI Data Analysis & Business Dashboard', track: 'Productivity', desc: 'สรุป KPI วิเคราะห์ Insight และช่วยผู้บริหารอ่านข้อมูลได้เร็วขึ้น', deliverable: 'KPI dashboard + insight memo' },
-  { id: 10, title: 'AI Document Intelligence', track: 'Productivity', desc: 'OCR, Extract, Classify, Compare, Summarize และ Review งานเอกสาร', deliverable: 'Document-processing workflow' },
-  { id: 11, title: 'AI Marketing Strategy', track: 'Growth', desc: 'Audience, Positioning, Customer Journey, Campaign และ Message ที่มีหลักฐาน', deliverable: 'Marketing strategy canvas' },
-  { id: 12, title: 'AI Content Engine', track: 'Growth', desc: 'Content Pillar, Idea, Script, Caption, Repurpose และ Production Workflow', deliverable: '30-day content engine' },
-  { id: 13, title: 'AI Sales & Lead Generation', track: 'Growth', desc: 'Prospect research, qualification, meeting prep, proposal และ follow-up', deliverable: 'AI sales workflow' },
-  { id: 14, title: 'AI Customer Experience & Service', track: 'Growth', desc: 'FAQ, Knowledge Base, Response Standard, Chatbot/LINE และ Escalation', deliverable: 'CX assistant blueprint' },
-  { id: 15, title: 'AI Business Strategy & Innovation', track: 'Growth', desc: 'หา Business Model, New Service, Scenario และ AI-enabled revenue', deliverable: 'AI growth roadmap' },
-  { id: 16, title: 'AI for Executive & Management', track: 'Department', desc: 'Strategy, Decision Memo, Dashboard, Scenario Thinking และ Governance', deliverable: 'Executive AI playbook' },
-  { id: 17, title: 'AI for Accounting & Finance', track: 'Department', desc: 'OCR, Reconciliation support, Variance, Closing Checklist และ Reporting', deliverable: 'Accounting workflow prototype' },
-  { id: 18, title: 'AI for HR & People Management', track: 'Department', desc: 'JD, Recruitment, Onboarding, Policy Knowledge, Training และ Performance', deliverable: 'HR workflow pack' },
-  { id: 19, title: 'AI for Sales Team', track: 'Department', desc: 'Standardize Discovery, Account Research, Proposal, Objection และ Follow-up', deliverable: 'Team sales copilot' },
-  { id: 20, title: 'AI for Marketing & PR Team', track: 'Department', desc: 'Campaign Engine, Content System, PR และ Audience Intelligence', deliverable: 'Marketing operating system' },
-  { id: 21, title: 'AI for Procurement / Stock / Operations', track: 'Department', desc: 'Supplier comparison, inventory insight, document workflow และ SOP', deliverable: 'Operations workflow pack' },
-  { id: 22, title: 'AI Custom Business Transformation Lab', track: 'Department', desc: 'นำ 1 ปัญหาจริงขององค์กรมา Build Workflow หรือ Prototype ในห้องเรียน', deliverable: 'Working prototype + 30-day plan' },
-  { id: 23, title: 'AI Personal Branding Foundation', track: 'Authority', desc: 'Positioning, Expertise, Audience, Brand Story และ Brand Voice', deliverable: 'Personal brand blueprint' },
-  { id: 24, title: 'AI Thought Leadership & Content Authority', track: 'Authority', desc: 'เปลี่ยนความเชี่ยวชาญเป็น Content System ที่สร้าง Authority อย่างต่อเนื่อง', deliverable: 'Thought leadership engine' },
-  { id: 25, title: 'AI Executive Brand & Digital Authority', track: 'Authority', desc: 'สร้าง Digital Footprint สำหรับผู้บริหาร/ผู้เชี่ยวชาญให้ค้นเจอและเชื่อถือได้', deliverable: 'Executive authority roadmap' }
-];
-
 // Readiness Level Recommendations Map
 const READINESS_DATA = {
   1: {
@@ -66,52 +37,37 @@ const READINESS_DATA = {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Course Grid Rendering & Search
+  // Course Grid Filtering & Search (cards are statically rendered in HTML for SEO/AI crawlers)
   const courseGrid = document.getElementById('coursesGrid');
+  const courseCards = courseGrid ? Array.from(courseGrid.querySelectorAll('.course-item-card')) : [];
+  const emptyState = document.getElementById('coursesEmptyState');
   const searchInput = document.getElementById('courseSearch');
   const tabButtons = document.querySelectorAll('.tab-btn');
   let currentTrack = 'all';
   let searchQuery = '';
 
-  function renderCourses() {
+  function applyCourseFilter() {
     if (!courseGrid) return;
-    courseGrid.innerHTML = '';
-    
-    const filtered = COURSES_DATA.filter(course => {
-      const matchTrack = currentTrack === 'all' || course.track === currentTrack;
-      const matchSearch = course.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                          course.desc.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                          course.deliverable.toLowerCase().includes(searchQuery.toLowerCase());
-      return matchTrack && matchSearch;
+    const query = searchQuery.toLowerCase();
+    let visibleCount = 0;
+
+    courseCards.forEach(card => {
+      const matchTrack = currentTrack === 'all' || card.dataset.track === currentTrack;
+      const text = card.textContent.toLowerCase();
+      const matchSearch = !query || text.includes(query);
+      const show = matchTrack && matchSearch;
+      card.hidden = !show;
+      if (show) visibleCount++;
     });
 
-    if (filtered.length === 0) {
-      courseGrid.innerHTML = `
-        <div style="grid-column: 1/-1; text-align: center; padding: 48px; background: var(--bg-surface); border-radius: 16px; border: 1px dashed var(--border-subtle)">
-          <p style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 12px;">ไม่พบหลักสูตรที่ตรงกับคำค้นหา "${searchQuery}"</p>
-          <button class="btn btn-gold-outline btn-sm" onclick="resetCourseSearch()">ดูหลักสูตรทั้งหมด</button>
-        </div>
-      `;
-      return;
+    if (emptyState) {
+      if (visibleCount === 0) {
+        emptyState.hidden = false;
+        emptyState.innerHTML = `ไม่พบหลักสูตรที่ตรงกับคำค้นหา "${searchQuery}" <button class="btn btn-gold-outline btn-sm" onclick="resetCourseSearch()" style="display:block;margin:12px auto 0;">ดูหลักสูตรทั้งหมด</button>`;
+      } else {
+        emptyState.hidden = true;
+      }
     }
-
-    filtered.forEach(c => {
-      const card = document.createElement('article');
-      card.className = 'course-item-card';
-      card.innerHTML = `
-        <div class="course-header">
-          <span class="course-code">${String(c.id).padStart(2, '0')}</span>
-          <span class="course-track-badge badge-${c.track}">${c.track}</span>
-        </div>
-        <h3>${c.title}</h3>
-        <p>${c.desc}</p>
-        <div class="course-takehome">
-          <strong>Take-home Deliverable:</strong>
-          <span>✦ ${c.deliverable}</span>
-        </div>
-      `;
-      courseGrid.appendChild(card);
-    });
   }
 
   window.resetCourseSearch = function() {
@@ -119,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
     searchQuery = '';
     currentTrack = 'all';
     tabButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.track === 'all'));
-    renderCourses();
+    applyCourseFilter();
   };
 
   tabButtons.forEach(btn => {
@@ -127,18 +83,16 @@ document.addEventListener('DOMContentLoaded', () => {
       tabButtons.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       currentTrack = btn.dataset.track;
-      renderCourses();
+      applyCourseFilter();
     });
   });
 
   if (searchInput) {
     searchInput.addEventListener('input', (e) => {
       searchQuery = e.target.value.trim();
-      renderCourses();
+      applyCourseFilter();
     });
   }
-
-  renderCourses();
 
   // Readiness Interactive Selector
   const readinessItems = document.querySelectorAll('.readiness-item');
