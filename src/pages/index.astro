@@ -1,150 +1,75 @@
-<!DOCTYPE html>
-<html lang="th">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Saltcase — AI Academy for Business | Customized Corporate AI Training & Consulting</title>
-  <meta name="description" content="Saltcase AI Academy for Business — สถาบันอบรม AI และที่ปรึกษาการวางระบบ AI Workflow องค์กร ออกแบบหลักสูตรเฉพาะทางจากปัญหาจริงของธุรกิจ พัฒนาโดยผู้เชี่ยวชาญ" />
-  <meta name="keywords" content="AI Training Thailand, Corporate AI Training, อบรม AI องค์กร, วิทยากร AI, AI for Business, AI Consulting Thailand, AI Workflow, Personal Branding" />
-  <meta name="robots" content="index,follow" />
-  <link rel="canonical" href="https://saltcase.vercel.app/" />
-  <link rel="alternate" hreflang="th" href="https://saltcase.vercel.app/" />
-  <link rel="alternate" hreflang="x-default" href="https://saltcase.vercel.app/" />
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CoachHero from '../components/CoachHero.astro';
+import CoursePoster from '../components/CoursePoster.astro';
+import { COURSES_DATA } from '../data/coursesData';
 
-  <!-- Favicon -->
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23c9935a'/%3E%3Ctext x='50' y='68' font-size='58' font-family='Georgia,serif' fill='%230b0d10' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E" />
+const title = 'AI BizCase Thailand — AI Academy for Business (by Saltcase) | Corporate AI Training & Consulting';
+const description = 'AI BizCase Thailand (by Saltcase) สถาบันอบรมและที่ปรึกษา AI สำหรับธุรกิจในประเทศไทย ให้บริการ Corporate AI Training, AI Business Workshop, AI Transformation และ Customized AI Training ที่ออกแบบจากปัญหาจริงขององค์กร';
 
-  <!-- Open Graph / Meta -->
-  <meta property="og:title" content="Saltcase — AI Academy for Business" />
-  <meta property="og:description" content="We Customize AI Around Your Business. Training • Workshop • Consulting • Workflow • Personal Branding" />
-  <meta property="og:type" content="website" />
-  <meta property="og:locale" content="th_TH" />
-  <meta property="og:url" content="https://saltcase.vercel.app/" />
-  <meta property="og:site_name" content="Saltcase AI Academy" />
-  <meta property="og:image" content="https://saltcase.vercel.app/assets/images/workshop-group.jpg" />
-  <meta property="og:image:width" content="1024" />
-  <meta property="og:image:height" content="768" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Saltcase — AI Academy for Business" />
-  <meta name="twitter:description" content="We Customize AI Around Your Business. Training • Workshop • Consulting • Workflow • Personal Branding" />
-  <meta name="twitter:image" content="https://saltcase.vercel.app/assets/images/workshop-group.jpg" />
+const courses = COURSES_DATA;
 
-  <!-- Stylesheet -->
-  <link rel="stylesheet" href="assets/css/style.css" />
+const orgSchema = {
+  "@context": "https://schema.org",
+  "@type": "EducationalOrganization",
+  "@id": "https://aibizcasethailand.com/#organization",
+  "name": "AI BizCase Thailand",
+  "alternateName": ["AIBizCase Thailand", "AI BizCase", "AIBizCaseThailand"],
+  "slogan": "We Customize AI Around Your Business.",
+  "parentOrganization": { "@type": "Organization", "name": "Saltcase" },
+  "description": "AI BizCase Thailand (by Saltcase) คือสถาบันอบรมและที่ปรึกษา AI สำหรับธุรกิจในประเทศไทย ให้บริการ Corporate AI Training, AI Business Workshop, AI Transformation และ Customized AI Training ที่ออกแบบจาก Business Process, แผนก, อุตสาหกรรม และปัญหาจริงขององค์กร",
+  "url": "https://aibizcasethailand.com",
+  "logo": "https://aibizcasethailand.com/assets/images/workshop-group.jpg",
+  "image": "https://aibizcasethailand.com/assets/images/workshop-group.jpg",
+  "email": "mail.saltcase@gmail.com",
+  "telephone": "+66869874656",
+  "address": { "@type": "PostalAddress", "addressLocality": "Bangkok", "addressCountry": "TH" },
+  "areaServed": { "@type": "Country", "name": "Thailand" },
+  "sameAs": ["https://line.me/ti/p/~Tubtimbiebers"],
+  "knowsAbout": ["AI for Business", "Corporate AI Training", "AI Workflow Architecture", "AI Automation", "Executive Personal Branding"]
+};
 
-  <!-- Schema.org: Organization -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "EducationalOrganization",
-    "name": "Saltcase AI Academy",
-    "alternateName": "Saltcase",
-    "description": "Customized AI Training, Corporate AI Workshops, and Workflow Transformation for Business.",
-    "url": "https://saltcase.vercel.app/",
-    "logo": "https://saltcase.vercel.app/assets/images/workshop-group.jpg",
-    "image": "https://saltcase.vercel.app/assets/images/workshop-group.jpg",
-    "email": "mail.saltcase@gmail.com",
-    "telephone": "+66869874656",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Bangkok",
-      "addressCountry": "TH"
+const courseListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "itemListElement": courses.map((c) => ({
+    "@type": "Course",
+    "position": c.id,
+    "name": c.title,
+    "headline": c.tagline,
+    "description": `${c.tagline} — ${c.aeoSolution} [ผลลัพธ์ที่ได้: ${c.deliverable}] [ผลลัพธ์ทางธุรกิจ: ${c.businessOutcome}]`,
+    "audience": {
+      "@type": "Audience",
+      "audienceType": c.targetAudience
     },
-    "areaServed": "TH",
-    "sameAs": [
-      "https://line.me/ti/p/~Tubtimbiebers"
-    ],
-    "knowsAbout": [
-      "AI for Business",
-      "Corporate AI Training",
-      "AI Workflow Architecture",
-      "AI Automation",
-      "Executive Personal Branding"
-    ]
-  }
-  </script>
+    "keywords": c.seoKeywords.join(', '),
+    "provider": { "@type": "Organization", "name": "AI BizCase Thailand", "sameAs": "https://aibizcasethailand.com/" }
+  }))
+};
 
-  <!-- Schema.org: Courses offered -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    "itemListElement": [
-      { "@type": "Course", "position": 1, "name": "AI Mindset for Business", "description": "เข้าใจความสามารถ ข้อจำกัด ความเสี่ยง และวิธีคิดแบบ Business-first", "provider": { "@type": "Organization", "name": "Saltcase AI Academy", "sameAs": "https://saltcase.vercel.app/" } },
-      { "@type": "Course", "position": 2, "name": "AI Tools Landscape for Business", "description": "เลือก ChatGPT, Gemini, Claude, NotebookLM, Image/Video และ Automation ให้ตรงงาน", "provider": { "@type": "Organization", "name": "Saltcase AI Academy", "sameAs": "https://saltcase.vercel.app/" } },
-      { "@type": "Course", "position": 3, "name": "Prompt Architecture for Business", "description": "เปลี่ยน Prompt แบบลองผิดลองถูกให้เป็นคำสั่งที่ทำซ้ำและส่งต่อในทีมได้", "provider": { "@type": "Organization", "name": "Saltcase AI Academy", "sameAs": "https://saltcase.vercel.app/" } },
-      { "@type": "Course", "position": 4, "name": "AI Research & Decision Intelligence", "description": "Research ตลาด คู่แข่ง ประเด็นสำคัญ และสังเคราะห์เป็นข้อมูลเพื่อการตัดสินใจ", "provider": { "@type": "Organization", "name": "Saltcase AI Academy", "sameAs": "https://saltcase.vercel.app/" } },
-      { "@type": "Course", "position": 5, "name": "AI Personal Assistant & Knowledge System", "description": "สร้างผู้ช่วยส่วนตัว/ทีมบน SOP และ Knowledge ที่เชื่อถือได้", "provider": { "@type": "Organization", "name": "Saltcase AI Academy", "sameAs": "https://saltcase.vercel.app/" } },
-      { "@type": "Course", "position": 6, "name": "AI Office Productivity", "description": "Email, Meeting, Report, Proposal, Presentation และงานความรู้ประจำวัน", "provider": { "@type": "Organization", "name": "Saltcase AI Academy", "sameAs": "https://saltcase.vercel.app/" } },
-      { "@type": "Course", "position": 7, "name": "AI Workflow Design", "description": "Map กระบวนการเดิม หา Friction และออกแบบ AI + Human Checkpoint", "provider": { "@type": "Organization", "name": "Saltcase AI Academy", "sameAs": "https://saltcase.vercel.app/" } },
-      { "@type": "Course", "position": 8, "name": "AI Automation for Business", "description": "เชื่อม Forms, Sheets, Calendar, LINE, No-code และ AI เพื่อลดงานส่งต่อ", "provider": { "@type": "Organization", "name": "Saltcase AI Academy", "sameAs": "https://saltcase.vercel.app/" } },
-      { "@type": "Course", "position": 9, "name": "AI Data Analysis & Business Dashboard", "description": "สรุป KPI วิเคราะห์ Insight และช่วยผู้บริหารอ่านข้อมูลได้เร็วขึ้น", "provider": { "@type": "Organization", "name": "Saltcase AI Academy", "sameAs": "https://saltcase.vercel.app/" } },
-      { "@type": "Course", "position": 10, "name": "AI Document Intelligence", "description": "OCR, Extract, Classify, Compare, Summarize และ Review งานเอกสาร", "provider": { "@type": "Organization", "name": "Saltcase AI Academy", "sameAs": "https://saltcase.vercel.app/" } },
-      { "@type": "Course", "position": 11, "name": "AI Marketing Strategy", "description": "Audience, Positioning, Customer Journey, Campaign และ Message ที่มีหลักฐาน", "provider": { "@type": "Organization", "name": "Saltcase AI Academy", "sameAs": "https://saltcase.vercel.app/" } },
-      { "@type": "Course", "position": 12, "name": "AI Content Engine", "description": "Content Pillar, Idea, Script, Caption, Repurpose และ Production Workflow", "provider": { "@type": "Organization", "name": "Saltcase AI Academy", "sameAs": "https://saltcase.vercel.app/" } },
-      { "@type": "Course", "position": 13, "name": "AI Sales & Lead Generation", "description": "Prospect research, qualification, meeting prep, proposal และ follow-up", "provider": { "@type": "Organization", "name": "Saltcase AI Academy", "sameAs": "https://saltcase.vercel.app/" } },
-      { "@type": "Course", "position": 14, "name": "AI Customer Experience & Service", "description": "FAQ, Knowledge Base, Response Standard, Chatbot/LINE และ Escalation", "provider": { "@type": "Organization", "name": "Saltcase AI Academy", "sameAs": "https://saltcase.vercel.app/" } },
-      { "@type": "Course", "position": 15, "name": "AI Business Strategy & Innovation", "description": "หา Business Model, New Service, Scenario และ AI-enabled revenue", "provider": { "@type": "Organization", "name": "Saltcase AI Academy", "sameAs": "https://saltcase.vercel.app/" } },
-      { "@type": "Course", "position": 16, "name": "AI for Executive & Management", "description": "Strategy, Decision Memo, Dashboard, Scenario Thinking และ Governance", "provider": { "@type": "Organization", "name": "Saltcase AI Academy", "sameAs": "https://saltcase.vercel.app/" } },
-      { "@type": "Course", "position": 17, "name": "AI for Accounting & Finance", "description": "OCR, Reconciliation support, Variance, Closing Checklist และ Reporting", "provider": { "@type": "Organization", "name": "Saltcase AI Academy", "sameAs": "https://saltcase.vercel.app/" } },
-      { "@type": "Course", "position": 18, "name": "AI for HR & People Management", "description": "JD, Recruitment, Onboarding, Policy Knowledge, Training และ Performance", "provider": { "@type": "Organization", "name": "Saltcase AI Academy", "sameAs": "https://saltcase.vercel.app/" } },
-      { "@type": "Course", "position": 19, "name": "AI for Sales Team", "description": "Standardize Discovery, Account Research, Proposal, Objection และ Follow-up", "provider": { "@type": "Organization", "name": "Saltcase AI Academy", "sameAs": "https://saltcase.vercel.app/" } },
-      { "@type": "Course", "position": 20, "name": "AI for Marketing & PR Team", "description": "Campaign Engine, Content System, PR และ Audience Intelligence", "provider": { "@type": "Organization", "name": "Saltcase AI Academy", "sameAs": "https://saltcase.vercel.app/" } },
-      { "@type": "Course", "position": 21, "name": "AI for Procurement / Stock / Operations", "description": "Supplier comparison, inventory insight, document workflow และ SOP", "provider": { "@type": "Organization", "name": "Saltcase AI Academy", "sameAs": "https://saltcase.vercel.app/" } },
-      { "@type": "Course", "position": 22, "name": "AI Custom Business Transformation Lab", "description": "นำ 1 ปัญหาจริงขององค์กรมา Build Workflow หรือ Prototype ในห้องเรียน", "provider": { "@type": "Organization", "name": "Saltcase AI Academy", "sameAs": "https://saltcase.vercel.app/" } },
-      { "@type": "Course", "position": 23, "name": "AI Personal Branding Foundation", "description": "Positioning, Expertise, Audience, Brand Story และ Brand Voice", "provider": { "@type": "Organization", "name": "Saltcase AI Academy", "sameAs": "https://saltcase.vercel.app/" } },
-      { "@type": "Course", "position": 24, "name": "AI Thought Leadership & Content Authority", "description": "เปลี่ยนความเชี่ยวชาญเป็น Content System ที่สร้าง Authority อย่างต่อเนื่อง", "provider": { "@type": "Organization", "name": "Saltcase AI Academy", "sameAs": "https://saltcase.vercel.app/" } },
-      { "@type": "Course", "position": 25, "name": "AI Executive Brand & Digital Authority", "description": "สร้าง Digital Footprint สำหรับผู้บริหาร/ผู้เชี่ยวชาญให้ค้นเจอและเชื่อถือได้", "provider": { "@type": "Organization", "name": "Saltcase AI Academy", "sameAs": "https://saltcase.vercel.app/" } }
-    ]
-  }
-  </script>
-
-  <!-- Schema.org: FAQ -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Saltcase AI Academy คืออะไร",
-        "acceptedAnswer": { "@type": "Answer", "text": "Saltcase คือสถาบันอบรมและที่ปรึกษาด้าน AI สำหรับองค์กร ที่ออกแบบหลักสูตรและ AI Workflow เฉพาะทางจากปัญหาจริงของธุรกิจแต่ละองค์กร แทนการสอนฟีเจอร์สำเร็จรูป ครอบคลุมตั้งแต่ Corporate Training, Workflow Consulting, Document Intelligence Automation ไปจนถึง Executive Personal Branding" }
-      },
-      {
-        "@type": "Question",
-        "name": "Saltcase มีหลักสูตรอะไรบ้าง มีกี่คอร์ส",
-        "acceptedAnswer": { "@type": "Answer", "text": "Saltcase มีหลักสูตรทั้งหมด 25 คอร์ส แบ่งเป็น 5 กลุ่ม ได้แก่ Foundation, Productivity, Growth, Department (เฉพาะแผนก เช่น บัญชี การเงิน HR ขาย การตลาด) และ Authority (Personal Branding และ Thought Leadership สำหรับผู้บริหาร)" }
-      },
-      {
-        "@type": "Question",
-        "name": "6M™ Methodology ของ Saltcase คืออะไร",
-        "acceptedAnswer": { "@type": "Answer", "text": "6M™ คือกรอบความคิดที่ Saltcase ใช้ขับเคลื่อนทุกหลักสูตรและโปรเจกต์ ประกอบด้วย 6 ขั้นตอน: Mindset (ทำความเข้าใจศักยภาพและความเสี่ยง), Map (ถอดกระบวนการทำงานเดิม), Mine (ค้นหาปัญหาที่ซ่อนอยู่), Match (เลือกเครื่องมือ AI ที่เหมาะสม), Make (สร้าง Prompt/Workflow/Prototype จริง) และ Multiply (วัดผล ROI และขยายผลทั่วองค์กร)" }
-      },
-      {
-        "@type": "Question",
-        "name": "AI Business Diagnostic คืออะไร และช่วยอะไรก่อนตัดสินใจเลือกคอร์ส",
-        "acceptedAnswer": { "@type": "Answer", "text": "AI Business Diagnostic คือเครื่องมือประเมินความพร้อมด้าน AI ขององค์กรใน 6 มิติ (People, Process, Pain Points, Platform, Potential Leverage, Priority) และจัดระดับความพร้อมเป็น 5 ระดับ ตั้งแต่ Explore ไปจนถึง AI-Enabled Business เพื่อแนะนำจุดเริ่มต้นและหลักสูตรที่เหมาะสมที่สุด ก่อนที่องค์กรจะตัดสินใจซื้อคอร์สหรือบริการใดๆ" }
-      },
-      {
-        "@type": "Question",
-        "name": "Saltcase อบรมแบบ In-house ให้องค์กรได้หรือไม่",
-        "acceptedAnswer": { "@type": "Answer", "text": "ได้ Saltcase ให้บริการอบรมแบบ In-house Corporate Training ที่ออกแบบเนื้อหาเฉพาะจากโครงสร้างธุรกิจ เอกสาร คน และเป้าหมาย KPI จริงขององค์กรนั้นๆ ตั้งแต่ทีมย่อยไม่กี่คนไปจนถึงทั้งองค์กรระดับ 100 คนขึ้นไป" }
-      },
-      {
-        "@type": "Question",
-        "name": "หลักสูตรและบริการของ Saltcase ราคาเท่าไหร่",
-        "acceptedAnswer": { "@type": "Answer", "text": "Saltcase ออกแบบราคาตามขอบเขตงานเฉพาะขององค์กร เนื่องจากทุกหลักสูตรและ Workflow ถูก Customize ตามปัญหา จำนวนผู้เข้าอบรม และเป้าหมายจริง จึงไม่มีราคาตายตัว กรุณาติดต่อทีมที่ปรึกษาเพื่อขอใบเสนอราคาโดยไม่มีค่าใช้จ่ายในการประเมินเบื้องต้น" }
-      },
-      {
-        "@type": "Question",
-        "name": "ติดต่อ Saltcase ได้ช่องทางใดบ้าง",
-        "acceptedAnswer": { "@type": "Answer", "text": "ติดต่อ Saltcase ได้ทางอีเมล mail.saltcase@gmail.com โทร 086-987-4656 หรือ LINE ID: Tubtimbiebers ทีมที่ปรึกษาให้บริการวันจันทร์ถึงศุกร์ เวลา 09:00-18:00 น." }
-      }
-    ]
-  }
-  </script>
-</head>
-<body>
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "AI BizCase Thailand คืออะไร", "acceptedAnswer": { "@type": "Answer", "text": "AI BizCase Thailand (by Saltcase) คือสถาบันอบรมและที่ปรึกษา AI สำหรับธุรกิจในประเทศไทย ให้บริการ Corporate AI Training, AI Business Workshop, AI Transformation และ Customized AI Training ที่ออกแบบจาก Business Process, แผนก, อุตสาหกรรม และปัญหาจริงขององค์กร" } },
+    { "@type": "Question", "name": "AI BizCase Thailand ต่างจากคอร์สสอน AI และ Prompt Engineering ทั่วไปอย่างไร", "acceptedAnswer": { "@type": "Answer", "text": "AI BizCase Thailand ไม่ได้สอนเพียงแค่ฟีเจอร์หรือการพิมพ์ Prompt ลอยๆ แต่ Customize จาก Business Context, Process, Documents, Data, Tools และ KPI จริงขององค์กร เพื่อเปลี่ยน AI ให้กลายเป็น Workflow และ Business System ที่วัดผล ROI ได้จริง" } },
+    { "@type": "Question", "name": "AI BizCase Thailand มีหลักสูตรอะไรบ้าง มีกี่คอร์ส", "acceptedAnswer": { "@type": "Answer", "text": "AI BizCase Thailand มีหลักสูตรทั้งหมด 25 คอร์ส ครอบคลุม 5 หมวดหมู่หลัก ได้แก่ Foundation (ปรับฐานคิดและความปลอดภัย), Productivity (ยกระดับงานประจำวันและลดขั้นตอนซ้ำซ้อน), Growth (ขับเคลื่อนการตลาด งานขาย และลูกค้าสัมพันธ์), Department (เฉพาะทางรายแผนก เช่น บัญชี HR ขาย การตลาด จัดซื้อ) และ Authority (สร้าง Thought Leadership และ Personal Brand สำหรับผู้บริหาร)" } },
+    { "@type": "Question", "name": "หลักสูตร AI สามารถ Customize ตามปัญหาขององค์กรได้หรือไม่", "acceptedAnswer": { "@type": "Answer", "text": "ได้ ทุกหลักสูตรของ AI BizCase Thailand สามารถปรับแต่ง (Customized AI Training) จากปัญหาจริง ขั้นตอนงานเดิม (As-Is Process) และเอกสารจริงขององค์กร ผ่านกระบวนการ SALTCASE 6M™ Methodology เพื่อให้สิ่งที่เรียนนำไปใช้งานได้จริงทันที" } },
+    { "@type": "Question", "name": "SALTCASE 6M™ Methodology คืออะไร", "acceptedAnswer": { "@type": "Answer", "text": "SALTCASE 6M™ คือกรอบความคิดที่ AI BizCase Thailand ใช้ขับเคลื่อนทุกหลักสูตรและโปรเจกต์ ประกอบด้วย 6 ขั้นตอน: Mindset (ปรับมุมมองธุรกิจ), Map (กางขั้นตอนและหาคอขวด), Mine (ขุดค้นข้อมูลและเอกสาร), Match (เลือกโมเดลและเครื่องมือให้ตรงงาน), Make (สร้าง Workflow และ Prototype ร่วมกัน) และ Measure / Multiply (วัดผล ROI จัดทำ SOP และขยายผลทั่วองค์กร)" } },
+    { "@type": "Question", "name": "AI Business Diagnostic™ คืออะไร และช่วยอะไรก่อนตัดสินใจเลือกคอร์ส", "acceptedAnswer": { "@type": "Answer", "text": "AI Business Diagnostic™ คือเครื่องมือประเมินความพร้อมด้าน AI ขององค์กรใน 6 มิติ (People, Process, Pain Points, Platform, Potential Leverage, Priority) และจัดระดับความพร้อมเป็น 5 ระดับ ตั้งแต่ Explore ไปจนถึง AI-Enabled Business เพื่อแนะนำจุดเริ่มต้นและหลักสูตรที่เหมาะสมที่สุด คุ้มค่าที่สุด ก่อนที่องค์กรจะตัดสินใจจัดอบรมหรือลงทุน" } },
+    { "@type": "Question", "name": "AI BizCase Thailand อบรมแบบ In-house ให้องค์กรได้หรือไม่", "acceptedAnswer": { "@type": "Answer", "text": "ได้ AI BizCase Thailand ให้บริการอบรมแบบ In-house Corporate Training ที่ออกแบบเนื้อหาเฉพาะจากโครงสร้างธุรกิจ เอกสาร คน และเป้าหมาย KPI จริงขององค์กร ตั้งแต่ทีมย่อย 1-10 ท่าน ไปจนถึงระดับแผนก และทั้งองค์กรระดับ 100+ ท่าน" } },
+    { "@type": "Question", "name": "หลักสูตรและบริการของ AI BizCase Thailand ราคาเท่าไหร่", "acceptedAnswer": { "@type": "Answer", "text": "AI BizCase Thailand ออกแบบราคาตามขอบเขตงานเฉพาะขององค์กร เนื่องจากทุกหลักสูตรและ Workflow ถูก Customize ตามปัญหา จำนวนผู้เข้าอบรม และเป้าหมายจริง จึงไม่มีราคาตายตัว ท่านสามารถติดต่อทีมที่ปรึกษาเพื่อขอใบเสนอราคาโดยไม่มีค่าใช้จ่ายในการประเมินเบื้องต้น" } },
+    { "@type": "Question", "name": "ติดต่อ AI BizCase Thailand ได้ช่องทางใดบ้าง", "acceptedAnswer": { "@type": "Answer", "text": "ติดต่อ AI BizCase Thailand ได้ทางเว็บไซต์ AIBizCaseThailand.com อีเมล mail.saltcase@gmail.com โทร 086-987-4656 หรือ LINE ID: Tubtimbiebers ทีมที่ปรึกษาให้บริการวันจันทร์ถึงศุกร์ เวลา 09:00-18:00 น." } }
+  ]
+};
+---
+<BaseLayout title={title} description={description} path="/">
+  <Fragment slot="schema">
+    <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(courseListSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <script id="saltcaseCoursesData" type="application/json" set:html={JSON.stringify(courses)} />
+  </Fragment>
 
   <!-- Top Announcement / Ticker Bar -->
   <aside class="expertise-strip">
@@ -155,7 +80,6 @@
       <div class="strip-item">Document Intelligence</div>
       <div class="strip-item">Sales & Marketing Automation</div>
       <div class="strip-item">Executive Personal Branding</div>
-      <!-- Duplicate for infinite seamless marquee -->
       <div class="strip-item">Corporate AI Training</div>
       <div class="strip-item">Custom AI Workflow Design</div>
       <div class="strip-item">Executive Masterclass</div>
@@ -165,43 +89,9 @@
     </div>
   </aside>
 
-  <!-- Navigation Bar -->
-  <nav class="navbar" id="navbar">
-    <div class="container navbar-inner">
-      <a class="brand-logo" href="#top">
-        <div class="brand-mark">S</div>
-        <div class="brand-title">
-          <strong>SALTCASE</strong>
-          <span>AI Academy for Business</span>
-        </div>
-      </a>
+  <CoachHero />
 
-      <ul class="nav-menu">
-        <li><a href="#solutions" class="nav-link">Solutions</a></li>
-        <li><a href="#action" class="nav-link">Real Workshop</a></li>
-        <li><a href="#pillars" class="nav-link">Pillars</a></li>
-        <li><a href="#method" class="nav-link">6M™ Method</a></li>
-        <li><a href="#courses" class="nav-link">25 Courses</a></li>
-        <li><a href="#diagnostic" class="nav-link">AI Diagnostic</a></li>
-        <li><a href="#authority" class="nav-link">Authority</a></li>
-        <li><a href="#faq" class="nav-link">FAQ</a></li>
-        <li><a href="blog/index.html" class="nav-link">Blog</a></li>
-      </ul>
-
-      <div class="nav-actions">
-        <a class="btn btn-secondary btn-sm" href="#courses">ดูหลักสูตร</a>
-        <a class="btn btn-primary btn-sm" href="#contact" data-open-modal>วิเคราะห์ AI Opportunity</a>
-        <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation menu">
-          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path d="M4 6h16M4 12h16M4 18h16"/>
-          </svg>
-        </button>
-      </div>
-    </div>
-  </nav>
-
-  <!-- Hero Section -->
-  <header class="hero-section" id="top">
+  {false && <header class="hero-section" id="legacy-hero">
     <div class="hero-glow"></div>
     <div class="container hero-grid">
       <div class="hero-content">
@@ -255,7 +145,7 @@
         </div>
 
         <div class="card-photo-wrapper">
-          <img src="assets/images/workshop-group.jpg" alt="บรรยากาศการอบรม In-house Corporate AI Training โดย Saltcase" width="1024" height="768" loading="eager" fetchpriority="high" />
+          <img src="/assets/images/workshop-group.jpg" alt="บรรยากาศการอบรม In-house Corporate AI Training โดย Saltcase" width="1024" height="768" loading="eager" fetchpriority="high" />
           <div class="photo-overlay-tag">Corporate AI Transformation Lab</div>
         </div>
 
@@ -284,7 +174,7 @@
         </div>
       </aside>
     </div>
-  </header>
+  </header>}
 
   <!-- Real Workshop Action Showcase (Proof of Work & Experience) -->
   <section class="section-padding" id="action" style="background: var(--bg-dark-subtle);">
@@ -295,7 +185,7 @@
           <h2 class="section-title">สัมผัสประสบการณ์จริง<br /><span class="gradient-text">เรียนรู้จากงานจริง รื้อไฟล์จริง</span></h2>
         </div>
         <p class="section-desc">
-          ภาพบรรยากาศเวิร์กช็อปและการให้คำปรึกษาจริง ที่ Saltcase เข้าไปร่วมเจาะลึกกระบวนการทำงาน 
+          ภาพบรรยากาศเวิร์กช็อปและการให้คำปรึกษาจริง ที่ AI BizCase Thailand (by Saltcase) เข้าไปร่วมเจาะลึกกระบวนการทำงาน 
           เปรียบเทียบเครื่องมือ และสร้าง AI Copilot ร่วมกับทีมบริหารและพนักงานในองค์กร
         </p>
       </div>
@@ -304,7 +194,7 @@
         <!-- Photo 1: Corporate Workshop Class Group -->
         <article class="gallery-card span-7 large">
           <div class="gallery-image-box">
-            <img src="assets/images/workshop-group.jpg" alt="บรรยากาศจบเวิร์กช็อป Corporate AI Transformation" width="1024" height="768" loading="lazy" />
+            <img src="/assets/images/workshop-group.jpg" alt="บรรยากาศจบเวิร์กช็อป Corporate AI Transformation" width="1024" height="768" loading="lazy" />
             <div class="gallery-badge">Corporate In-house Training</div>
           </div>
           <div class="gallery-caption">
@@ -321,7 +211,7 @@
         <!-- Photo 2: Practical AI Workflow & Persona -->
         <article class="gallery-card span-5">
           <div class="gallery-image-box">
-            <img src="assets/images/workshop-workflow.jpg" alt="การออกแบบ Create AI Workflow & AI Persona" width="1024" height="768" loading="lazy" />
+            <img src="/assets/images/workshop-workflow.jpg" alt="การออกแบบ Create AI Workflow & AI Persona" width="1024" height="768" loading="lazy" />
             <div class="gallery-badge">Workflow Architecture</div>
           </div>
           <div class="gallery-caption">
@@ -338,7 +228,7 @@
         <!-- Photo 3: AI Feature Comparison Matrix -->
         <article class="gallery-card span-6">
           <div class="gallery-image-box">
-            <img src="assets/images/workshop-comparison.jpg" alt="เปรียบเทียบฟีเจอร์ AI ยอดนิยมสำหรับธุรกิจ" width="1024" height="768" loading="lazy" />
+            <img src="/assets/images/workshop-comparison.jpg" alt="เปรียบเทียบฟีเจอร์ AI ยอดนิยมสำหรับธุรกิจ" width="1024" height="768" loading="lazy" />
             <div class="gallery-badge">Decision Matrix</div>
           </div>
           <div class="gallery-caption">
@@ -355,7 +245,7 @@
         <!-- Photo 4: Hands-on Team Consulting -->
         <article class="gallery-card span-6">
           <div class="gallery-image-box">
-            <img src="assets/images/workshop-consulting.jpg" alt="เวิร์กช็อปกลุ่มย่อยแบบจับมือทำรายทีม" width="1024" height="576" loading="lazy" />
+            <img src="/assets/images/workshop-consulting.jpg" alt="เวิร์กช็อปกลุ่มย่อยแบบจับมือทำรายทีม" width="1024" height="576" loading="lazy" />
             <div class="gallery-badge">Hands-on Lab</div>
           </div>
           <div class="gallery-caption">
@@ -393,8 +283,8 @@
               <div class="problem-icon-wrap">01</div>
               <span class="problem-pain-tag">Lack of Standard</span>
             </div>
-            <h3>ทีมไม่รู้จะเริ่ม AI จากไหน</h3>
-            <p>ต่างคนต่างลอง ไม่มีแนวทางความปลอดภัยที่ชัดเจน กลัวข้อมูลรั่วไหล และผลลัพธ์ไม่สม่ำเสมอ</p>
+            <h3>ทีมต่างคนต่างลอง ไม่มีมาตรฐานความปลอดภัย</h3>
+            <p>กลัวข้อมูลลูกค้ารั่วไหล ผลลัพธ์ไม่แน่นอน และผู้บริหารไม่มีนโยบาย AI Governance รองรับ</p>
           </div>
           <div class="problem-route">
             <span>Solution: AI Foundation & Security</span>
@@ -408,8 +298,8 @@
               <div class="problem-icon-wrap">02</div>
               <span class="problem-pain-tag">Heavy Manual Work</span>
             </div>
-            <h3>งานเอกสารเยอะและใช้เวลานาน</h3>
-            <p>เสียเวลาคัดลอกข้อมูล สรุปรายงาน และตรวจทานสัญญาด้วยมือซ้ำไปซ้ำมา</p>
+            <h3>งานเอกสารท่วมตัว นั่งคัดลอกสรุปจนหมดวัน</h3>
+            <p>เสียเวลาคัดลอกข้อมูล ตรวจทานสัญญา และสรุปรายงานด้วยมือซ้ำ ๆ ทุกสัปดาห์</p>
           </div>
           <div class="problem-route">
             <span>Solution: Document Intelligence</span>
@@ -423,8 +313,8 @@
               <div class="problem-icon-wrap">03</div>
               <span class="problem-pain-tag">Closing Bottleneck</span>
             </div>
-            <h3>ปิดบัญชีช้า กระทบยอดหลายขั้น</h3>
-            <p>ใบเสร็จ ใบกำกับภาษี และเอกสารทางการเงินกระจายตัว ขาดระบบคัดแยกและตรวจสอบอัตโนมัติ</p>
+            <h3>ปิดงบสิ้นเดือนล่าช้า นั่งกระทบยอดถึงดึก</h3>
+            <p>ใบเสร็จและเอกสารการเงินกระจัดกระจาย ขาดระบบคัดแยกและตรวจสอบอัตโนมัติที่ไว้ใจได้</p>
           </div>
           <div class="problem-route">
             <span>Solution: AI for Finance & Closing</span>
@@ -438,8 +328,8 @@
               <div class="problem-icon-wrap">04</div>
               <span class="problem-pain-tag">Slow Pipeline</span>
             </div>
-            <h3>ฝ่ายขาย Follow-up ลูกค้าไม่ทัน</h3>
-            <p>เสียเวลาร่าง Proposal และค้นหาข้อมูลลูกค้านานเกินไปจนพลาดโอกาสปิดการขาย</p>
+            <h3>ฝ่ายขายตามลูกค้าไม่ทัน ทำข้อเสนอช้าจนชวดดีล</h3>
+            <p>เสียเวลาค้นหาประวัติและร่าง Proposal นานเกินไป จนคู่แข่งชิงตอบและปิดการขายก่อน</p>
           </div>
           <div class="problem-route">
             <span>Solution: AI Sales Copilot System</span>
@@ -453,8 +343,8 @@
               <div class="problem-icon-wrap">05</div>
               <span class="problem-pain-tag">Inconsistent Content</span>
             </div>
-            <h3>Marketing ทำ Content ไม่ต่อเนื่อง</h3>
-            <p>คิดไอเดียไม่ออก ใช้เวลาผลิตนาน และคอนเทนต์ไม่สร้างยอดขายหรือความน่าเชื่อถือ</p>
+            <h3>ทีมการตลาดคอนเทนต์ขาดช่วง ไอเดียตัน</h3>
+            <p>คิดหัวข้อไม่ออก ผลิตคอนเทนต์ไม่ทัน และเนื้อหาไม่ช่วยสร้างยอดขายหรือความน่าเชื่อถือ</p>
           </div>
           <div class="problem-route">
             <span>Solution: Content Engine & Authority</span>
@@ -468,8 +358,8 @@
               <div class="problem-icon-wrap">06</div>
               <span class="problem-pain-tag">No Clear Roadmap</span>
             </div>
-            <h3>ผู้บริหารอยากมี AI Roadmap</h3>
-            <p>ต้องการประเมินความคุ้มค่า (ROI), จัดลำดับความสำคัญของโปรเจกต์ และบริหารความเสี่ยง</p>
+            <h3>ผู้บริหารอยากลุย AI แต่ไม่มี Roadmap ที่จับต้องได้</h3>
+            <p>อยากเริ่มแต่กลัวลงทุนเสียเปล่า ไม่รู้จะจัดลำดับความสำคัญและวัดผลความคุ้มค่า ROI อย่างไร</p>
           </div>
           <div class="problem-route">
             <span>Solution: Executive AI Lab</span>
@@ -489,8 +379,8 @@
           <h2 class="section-title">จากการเรียนรู้ <br /><span class="gradient-text">สู่การเปลี่ยนวิธีทำงานจริง</span></h2>
         </div>
         <p class="section-desc">
-          Saltcase วางบริการเป็นเส้นทางต่อเนื่องที่เชื่อมโยงกันอย่างเป็นระบบ ตั้งแต่การเสริมทักษะทีม 
-          ไปจนถึงการสร้างความได้เปรียบทางธุรกิจและ Personal Authority
+          AI BizCase Thailand วางบริการเป็นเส้นทางต่อเนื่องที่เชื่อมโยงกันอย่างเป็นระบบ ตั้งแต่การเสริมทักษะทีม 
+          ไปจนถึงการเปลี่ยนผ่านสู่การทำงานจริงและสร้าง Thought Leadership
         </p>
       </div>
 
@@ -529,7 +419,7 @@
         <div class="eyebrow">SALTCASE 6M™ METHODOLOGY</div>
         <h2 class="section-title">The Method is the Brand.</h2>
         <p class="section-desc">
-          ทุกหลักสูตรและโปรเจกต์ของ Saltcase ขับเคลื่อนด้วยกรอบความคิด 6M™ เพื่อให้การ Customize เป็นระบบ มีหลักการ และวัดผลลัพธ์ได้อย่างแม่นยำ
+          ทุกหลักสูตรและโปรเจกต์ของ AI BizCase Thailand ขับเคลื่อนด้วยกรอบความคิด SALTCASE 6M™ เพื่อให้การ Customize เป็นระบบ มีหลักการ และวัดผลลัพธ์ได้อย่างแม่นยำ
         </p>
       </div>
 
@@ -606,6 +496,8 @@
 
       <!-- Course Grid: statically rendered for SEO/AI crawlers, filtered client-side by main.js -->
       <div class="courses-grid" id="coursesGrid">
+        {courses.map((course) => <CoursePoster {...course} />)}
+        {false && <>
         <article class="course-item-card" data-track="Foundation">
           <div class="course-header"><span class="course-code">01</span><span class="course-track-badge badge-Foundation">Foundation</span></div>
           <h3>AI Mindset for Business</h3>
@@ -756,6 +648,7 @@
           <p>สร้าง Digital Footprint สำหรับผู้บริหาร/ผู้เชี่ยวชาญให้ค้นเจอและเชื่อถือได้</p>
           <div class="course-takehome"><strong>Take-home Deliverable:</strong><span>✦ Executive authority roadmap</span></div>
         </article>
+        </>}
       </div>
       <p id="coursesEmptyState" class="courses-empty-state" hidden style="grid-column: 1/-1; text-align: center; padding: 48px; background: var(--bg-surface); border-radius: 16px; border: 1px dashed var(--border-subtle); color: var(--text-secondary);"></p>
     </div>
@@ -946,9 +839,9 @@
             <p style="margin-bottom: 10px;">ทีมงานเริ่มทดลองใช้ AI เช่น ChatGPT เป็นรายบุคคล แต่ยังไม่มีนโยบาย แนวทาง หรือมาตรฐานการใช้งานที่ปลอดภัย</p>
             <p style="color: var(--accent-gold-light); font-weight: 600; margin-bottom: 12px;">แนะนำเริ่มจาก: AI Mindset & Foundation Course เพื่อสร้างความเข้าใจเรื่อง Data Privacy, Tool Selection และ Prompt Framework ที่มีมาตรฐาน</p>
             <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-              <span style="background: rgba(201,147,90,0.15); color: #fff; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; border: 1px solid var(--border-accent);">01 · AI Mindset for Business</span>
-              <span style="background: rgba(201,147,90,0.15); color: #fff; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; border: 1px solid var(--border-accent);">02 · AI Tools Landscape</span>
-              <span style="background: rgba(201,147,90,0.15); color: #fff; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; border: 1px solid var(--border-accent);">03 · Prompt Architecture</span>
+              <span style="background: rgba(91,58,150,0.10); color: #5b3a96; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; border: 1px solid var(--border-accent);">01 · AI Mindset for Business</span>
+              <span style="background: rgba(91,58,150,0.10); color: #5b3a96; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; border: 1px solid var(--border-accent);">02 · AI Tools Landscape</span>
+              <span style="background: rgba(91,58,150,0.10); color: #5b3a96; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; border: 1px solid var(--border-accent);">03 · Prompt Architecture</span>
             </div>
           </div>
         </div>
@@ -965,7 +858,7 @@
           <h2 class="section-title">Personal Branding ที่เริ่มจาก <br /><span class="gradient-text">“ความเชื่อ” ไม่ใช่แค่คอนเทนต์</span></h2>
         </div>
         <p class="section-desc">
-          Saltcase เชื่อว่าลูกค้าต้องซื้อ “วิธีคิด” ก่อนซื้อบริการ เราจึงใช้ Content System 
+          AI BizCase Thailand เชื่อว่าลูกค้าต้องซื้อ “วิธีคิด” ก่อนซื้อบริการ เราจึงใช้ Content System 
           เพื่อเปลี่ยนมุมมอง สร้างหลักฐาน (Evidence) และทำให้ความเชี่ยวชาญของผู้บริหารค้นเจอได้บนโลกดิจิทัล
         </p>
       </div>
@@ -978,9 +871,9 @@
             แล้วออกแบบหลักฐานและเนื้อหาเพื่อนำพาความคิดนั้นไปสู่ Action จริง
           </p>
           <div class="quote-author">
-            <img src="assets/images/workshop-workflow.jpg" alt="Saltcase Methodology Founder" width="1024" height="768" loading="lazy" />
+            <img src="/assets/images/workshop-workflow.jpg" alt="AI BizCase Thailand Methodology" width="1024" height="768" loading="lazy" />
             <div class="quote-author-info">
-              <strong>Saltcase Methodology™</strong>
+              <strong>AI BizCase Methodology™</strong>
               <span>Executive Thought Leadership Framework</span>
             </div>
           </div>
@@ -1014,7 +907,7 @@
         <div class="eyebrow">Case Study Standard</div>
         <h2 class="section-title">ไม่เล่าแค่ว่า “เราเคยอบรมใคร”</h2>
         <p class="section-desc">
-          เคสทุกชิ้นของ Saltcase ต้องพิสูจน์วิธีคิดและผลลัพธ์ทางธุรกิจที่ชัดเจน โดยไม่แต่งตัวเลข ROI ที่ยังไม่ได้วัดผลจริง
+          เคสทุกชิ้นของ AI BizCase Thailand ต้องพิสูจน์วิธีคิดและผลลัพธ์ทางธุรกิจที่ชัดเจน โดยไม่แต่งตัวเลข ROI ที่ยังไม่ได้วัดผลจริง
         </p>
       </div>
 
@@ -1033,7 +926,7 @@
 
         <div class="case-standard-card">
           <small>STEP 03</small>
-          <b>Saltcase Thinking</b>
+          <b>AI BizCase Thinking</b>
           <span>วิธีรื้อโจทย์ วิเคราะห์ 6M และการเลือกจัดลำดับ Priority</span>
         </div>
 
@@ -1058,37 +951,45 @@
       <div class="section-head center">
         <div class="eyebrow">Frequently Asked Questions</div>
         <h2 class="section-title">คำถามที่พบบ่อย</h2>
-        <p class="section-desc">คำตอบสั้นๆ เกี่ยวกับ Saltcase หลักสูตร และวิธีการทำงาน</p>
+        <p class="section-desc">คำตอบที่ชัดเจนและตรงประเด็นเกี่ยวกับ AI BizCase Thailand (by Saltcase) หลักสูตร และวิธีการทำงาน</p>
       </div>
 
       <div class="faq-list" style="max-width: 820px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px;">
         <details class="faq-item">
-          <summary>Saltcase AI Academy คืออะไร</summary>
-          <p>Saltcase คือสถาบันอบรมและที่ปรึกษาด้าน AI สำหรับองค์กร ที่ออกแบบหลักสูตรและ AI Workflow เฉพาะทางจากปัญหาจริงของธุรกิจแต่ละองค์กร แทนการสอนฟีเจอร์สำเร็จรูป ครอบคลุมตั้งแต่ Corporate Training, Workflow Consulting, Document Intelligence Automation ไปจนถึง Executive Personal Branding</p>
+          <summary>AI BizCase Thailand คืออะไร</summary>
+          <p>AI BizCase Thailand (by Saltcase) คือสถาบันอบรมและที่ปรึกษา AI สำหรับธุรกิจในประเทศไทย ให้บริการ Corporate AI Training, AI Business Workshop, AI Transformation และ Customized AI Training ที่ออกแบบจาก Business Process, แผนก, อุตสาหกรรม และปัญหาจริงขององค์กร</p>
         </details>
         <details class="faq-item">
-          <summary>Saltcase มีหลักสูตรอะไรบ้าง มีกี่คอร์ส</summary>
-          <p>Saltcase มีหลักสูตรทั้งหมด 25 คอร์ส แบ่งเป็น 5 กลุ่ม ได้แก่ Foundation, Productivity, Growth, Department (เฉพาะแผนก เช่น บัญชี การเงิน HR ขาย การตลาด) และ Authority (Personal Branding และ Thought Leadership สำหรับผู้บริหาร)</p>
+          <summary>AI BizCase Thailand ต่างจากคอร์สสอน AI และ Prompt Engineering ทั่วไปอย่างไร</summary>
+          <p>AI BizCase Thailand ไม่ได้สอนเพียงแค่ฟีเจอร์หรือการพิมพ์ Prompt ลอยๆ แต่ Customize จาก Business Context, Process, Documents, Data, Tools และ KPI จริงขององค์กร เพื่อเปลี่ยน AI ให้กลายเป็น Workflow และ Business System ที่วัดผล ROI ได้จริง</p>
         </details>
         <details class="faq-item">
-          <summary>6M™ Methodology ของ Saltcase คืออะไร</summary>
-          <p>6M™ คือกรอบความคิดที่ Saltcase ใช้ขับเคลื่อนทุกหลักสูตรและโปรเจกต์ ประกอบด้วย 6 ขั้นตอน: Mindset, Map, Mine, Match, Make และ Multiply เพื่อให้การ Customize เป็นระบบ มีหลักการ และวัดผลลัพธ์ได้อย่างแม่นยำ</p>
+          <summary>AI BizCase Thailand มีหลักสูตรอะไรบ้าง มีกี่คอร์ส</summary>
+          <p>AI BizCase Thailand มีหลักสูตรทั้งหมด 25 คอร์ส ครอบคลุม 5 หมวดหมู่หลัก ได้แก่ Foundation (ปรับฐานคิดและความปลอดภัย), Productivity (ยกระดับงานประจำวันและลดขั้นตอนซ้ำซ้อน), Growth (ขับเคลื่อนการตลาด งานขาย และลูกค้าสัมพันธ์), Department (เฉพาะทางรายแผนก เช่น บัญชี HR ขาย การตลาด จัดซื้อ) และ Authority (สร้าง Thought Leadership และ Personal Brand สำหรับผู้บริหาร)</p>
         </details>
         <details class="faq-item">
-          <summary>AI Business Diagnostic คืออะไร และช่วยอะไรก่อนตัดสินใจเลือกคอร์ส</summary>
-          <p>AI Business Diagnostic คือเครื่องมือประเมินความพร้อมด้าน AI ขององค์กรใน 6 มิติ และจัดระดับความพร้อมเป็น 5 ระดับ ตั้งแต่ Explore ไปจนถึง AI-Enabled Business เพื่อแนะนำจุดเริ่มต้นและหลักสูตรที่เหมาะสมที่สุด ก่อนที่องค์กรจะตัดสินใจซื้อคอร์สหรือบริการใดๆ</p>
+          <summary>หลักสูตร AI สามารถ Customize ตามปัญหาขององค์กรได้หรือไม่</summary>
+          <p>ได้ ทุกหลักสูตรของ AI BizCase Thailand สามารถปรับแต่ง (Customized AI Training) จากปัญหาจริง ขั้นตอนงานเดิม (As-Is Process) และเอกสารจริงขององค์กร ผ่านกระบวนการ SALTCASE 6M™ Methodology เพื่อให้สิ่งที่เรียนนำไปใช้งานได้จริงทันที</p>
         </details>
         <details class="faq-item">
-          <summary>Saltcase อบรมแบบ In-house ให้องค์กรได้หรือไม่</summary>
-          <p>ได้ Saltcase ให้บริการอบรมแบบ In-house Corporate Training ที่ออกแบบเนื้อหาเฉพาะจากโครงสร้างธุรกิจ เอกสาร คน และเป้าหมาย KPI จริงขององค์กรนั้นๆ ตั้งแต่ทีมย่อยไม่กี่คนไปจนถึงทั้งองค์กรระดับ 100 คนขึ้นไป</p>
+          <summary>SALTCASE 6M™ Methodology คืออะไร</summary>
+          <p>SALTCASE 6M™ คือกรอบความคิดที่ AI BizCase Thailand ใช้ขับเคลื่อนทุกหลักสูตรและโปรเจกต์ ประกอบด้วย 6 ขั้นตอน: Mindset (ปรับมุมมองธุรกิจ), Map (กางขั้นตอนและหาคอขวด), Mine (ขุดค้นข้อมูลและเอกสาร), Match (เลือกโมเดลและเครื่องมือให้ตรงงาน), Make (สร้าง Workflow และ Prototype ร่วมกัน) และ Measure / Multiply (วัดผล ROI จัดทำ SOP และขยายผลทั่วองค์กร)</p>
         </details>
         <details class="faq-item">
-          <summary>หลักสูตรและบริการของ Saltcase ราคาเท่าไหร่</summary>
-          <p>Saltcase ออกแบบราคาตามขอบเขตงานเฉพาะขององค์กร เนื่องจากทุกหลักสูตรและ Workflow ถูก Customize ตามปัญหา จำนวนผู้เข้าอบรม และเป้าหมายจริง จึงไม่มีราคาตายตัว กรุณาติดต่อทีมที่ปรึกษาเพื่อ<strong> ขอใบเสนอราคา</strong> โดยไม่มีค่าใช้จ่ายในการประเมินเบื้องต้น</p>
+          <summary>AI Business Diagnostic™ คืออะไร และช่วยอะไรก่อนตัดสินใจเลือกคอร์ส</summary>
+          <p>AI Business Diagnostic™ คือเครื่องมือประเมินความพร้อมด้าน AI ขององค์กรใน 6 มิติ (People, Process, Pain Points, Platform, Potential Leverage, Priority) และจัดระดับความพร้อมเป็น 5 ระดับ ตั้งแต่ Explore ไปจนถึง AI-Enabled Business เพื่อแนะนำจุดเริ่มต้นและหลักสูตรที่เหมาะสมที่สุด คุ้มค่าที่สุด ก่อนที่องค์กรจะตัดสินใจจัดอบรมหรือลงทุน</p>
         </details>
         <details class="faq-item">
-          <summary>ติดต่อ Saltcase ได้ช่องทางใดบ้าง</summary>
-          <p>ติดต่อ Saltcase ได้ทางอีเมล <a href="mailto:mail.saltcase@gmail.com">mail.saltcase@gmail.com</a> โทร <a href="tel:+66869874656">086-987-4656</a> หรือ LINE ID: <a href="https://line.me/ti/p/~Tubtimbiebers" target="_blank" rel="noopener">Tubtimbiebers</a> ทีมที่ปรึกษาให้บริการวันจันทร์ถึงศุกร์ เวลา 09:00-18:00 น.</p>
+          <summary>AI BizCase Thailand อบรมแบบ In-house ให้องค์กรได้หรือไม่</summary>
+          <p>ได้ AI BizCase Thailand ให้บริการอบรมแบบ In-house Corporate Training ที่ออกแบบเนื้อหาเฉพาะจากโครงสร้างธุรกิจ เอกสาร คน และเป้าหมาย KPI จริงขององค์กร ตั้งแต่ทีมย่อย 1-10 ท่าน ไปจนถึงระดับแผนก และทั้งองค์กรระดับ 100+ ท่าน</p>
+        </details>
+        <details class="faq-item">
+          <summary>หลักสูตรและบริการของ AI BizCase Thailand ราคาเท่าไหร่</summary>
+          <p>AI BizCase Thailand ออกแบบราคาตามขอบเขตงานเฉพาะขององค์กร เนื่องจากทุกหลักสูตรและ Workflow ถูก Customize ตามปัญหา จำนวนผู้เข้าอบรม และเป้าหมายจริง จึงไม่มีราคาตายตัว ท่านสามารถติดต่อทีมที่ปรึกษาเพื่อขอใบเสนอราคาโดยไม่มีค่าใช้จ่ายในการประเมินเบื้องต้น</p>
+        </details>
+        <details class="faq-item">
+          <summary>ติดต่อ AI BizCase Thailand ได้ช่องทางใดบ้าง</summary>
+          <p>ติดต่อ AI BizCase Thailand ได้ทางเว็บไซต์ AIBizCaseThailand.com อีเมล <a href="mailto:mail.saltcase@gmail.com">mail.saltcase@gmail.com</a> โทร <a href="tel:+66869874656">086-987-4656</a> หรือ LINE ID: <a href="https://line.me/ti/p/~Tubtimbiebers" target="_blank" rel="noopener">Tubtimbiebers</a> ทีมที่ปรึกษาให้บริการวันจันทร์ถึงศุกร์ เวลา 09:00-18:00 น.</p>
         </details>
       </div>
     </div>
@@ -1099,47 +1000,47 @@
     <div class="container">
       <div class="cta-banner">
         <div>
-          <div class="eyebrow" style="background: rgba(255,255,255,0.1); color: #ffffff; border-color: rgba(255,255,255,0.2);">Bring Your Real Business Problem.</div>
+          <div class="eyebrow">Bring Your Real Business Problem.</div>
           <h2>เริ่มจากปัญหาจริง<br />ขององค์กรคุณวันนี้</h2>
           <p>
-            ทีมที่ปรึกษา Saltcase พร้อมช่วยวิเคราะห์โอกาสทางธุรกิจด้วย AI (AI Opportunity) 
+            ทีมที่ปรึกษา AI BizCase Thailand (by Saltcase) พร้อมช่วยวิเคราะห์โอกาสทางธุรกิจด้วย AI (AI Opportunity) 
             และออกแบบโครงสร้างหลักสูตรหรือเวิร์กช็อปที่ตอบโจทย์เฉพาะองค์กรของคุณ
           </p>
           <div style="margin-top: 30px; display: flex; gap: 14px; flex-wrap: wrap;">
-            <a class="btn btn-primary" href="mailto:mail.saltcase@gmail.com?subject=ขอรับการประเมิน%20AI%20Business%20Diagnostic">
+            <a class="btn btn-primary" href="mailto:mail.saltcase@gmail.com?subject=ขอรับการประเมิน%20AI%20Business%20Diagnostic%20-%20AI%20BizCase%20Thailand">
               <span>ส่งอีเมลปรึกษาทีมงาน</span>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
             </a>
             <a class="btn btn-gold-outline" href="#courses">
-              <span>ดาวน์โหลด Syllabus รวม</span>
+              <span>สำรวจ 25 หลักสูตร</span>
             </a>
           </div>
         </div>
 
         <!-- Inline Quick Diagnostic Form -->
         <div class="cta-form-container">
-          <form class="cta-form" id="contactForm">
-            <h3 style="font-size: 1.25rem; color: #ffffff; margin-bottom: 4px;">นัดหมายประเมิน AI Diagnostic</h3>
+          <form class="cta-form" id="contactForm" data-inquiry-form data-form-source="แบบฟอร์ม AI Diagnostic">
+            <h3 style="font-size: 1.25rem; color: #211a2b; margin-bottom: 4px;">นัดหมายประเมิน AI Diagnostic</h3>
             <p style="font-size: 0.825rem; color: var(--text-secondary); margin-bottom: 12px;">รับคำแนะนำแผนการ Transform องค์กรฟรีจากผู้เชี่ยวชาญ</p>
 
             <div class="form-group">
               <label for="name">ชื่อ - นามสกุล</label>
-              <input type="text" id="name" class="form-input" placeholder="เช่น คุณสมชาย บริหารธุรกิจ" required />
+              <input type="text" id="name" name="name" class="form-input" placeholder="เช่น คุณสมชาย บริหารธุรกิจ" required />
             </div>
 
             <div class="form-group">
               <label for="company">ชื่อองค์กร / บริษัท</label>
-              <input type="text" id="company" class="form-input" placeholder="เช่น บริษัท เอไอ ทรานส์ฟอร์ม จำกัด" required />
+              <input type="text" id="company" name="company" class="form-input" placeholder="เช่น บริษัท เอไอ ทรานส์ฟอร์ม จำกัด" required />
             </div>
 
             <div class="form-group">
               <label for="phone">เบอร์ติดต่อ / อีเมล</label>
-              <input type="text" id="phone" class="form-input" placeholder="08x-xxx-xxxx หรือ email@company.com" required />
+              <input type="text" id="phone" name="contact" class="form-input" placeholder="08x-xxx-xxxx หรือ email@company.com" required />
             </div>
 
             <div class="form-group">
               <label for="topic">หัวข้อหรือความสนใจหลัก</label>
-              <select id="topic" class="form-input" style="background: #181c22; color: #fff;">
+              <select id="topic" name="interest" class="form-input" style="background: #181c22; color: #fff;">
                 <option value="corporate-training">อบรม In-house Corporate Training</option>
                 <option value="workflow-consulting">ปรึกษาการออกแบบ Custom AI Workflow</option>
                 <option value="document-ai">วางระบบ AI Document Intelligence & Automation</option>
@@ -1149,7 +1050,7 @@
             </div>
 
             <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 8px;">
-              <span>ส่งข้อมูลเพื่อนัดหมายทีมที่ปรึกษา</span>
+              <span>เปิดอีเมลเพื่อนัดหมายทีมที่ปรึกษา</span>
             </button>
           </form>
         </div>
@@ -1157,106 +1058,5 @@
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-top">
-        <div class="footer-brand">
-          <a class="brand-logo" href="#top">
-            <div class="brand-mark">S</div>
-            <div class="brand-title">
-              <strong>SALTCASE</strong>
-              <span>AI Academy for Business</span>
-            </div>
-          </a>
-          <p>
-            สถาบันพัฒนาศักยภาพ AI และที่ปรึกษาการวางระบบ AI Workflow สำหรับองค์กรธุรกิจยุคใหม่ 
-            มุ่งเน้นการสร้างผลลัพธ์จริงที่วัดผลได้ผ่านกระบวนการ Saltcase 6M™
-          </p>
-        </div>
 
-        <div class="footer-col">
-          <h4>SOLUTIONS</h4>
-          <ul class="footer-links">
-            <li><a href="#courses">Corporate Training</a></li>
-            <li><a href="#courses">AI Workflow Design</a></li>
-            <li><a href="#courses">Document Intelligence</a></li>
-            <li><a href="#courses">Automation Systems</a></li>
-            <li><a href="#authority">Executive Branding</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-col">
-          <h4>METHODOLOGY</h4>
-          <ul class="footer-links">
-            <li><a href="#method">Saltcase 6M™ Framework</a></li>
-            <li><a href="#diagnostic">AI Readiness 5 Levels</a></li>
-            <li><a href="#diagnostic">6 Dimensions Diagnostic</a></li>
-            <li><a href="#authority">Belief Shift™ Model</a></li>
-            <li><a href="#courses">25-Course Architecture</a></li>
-            <li><a href="blog/index.html">Blog & Insights</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-col">
-          <h4>CONTACT & SUPPORT</h4>
-          <ul class="footer-links">
-            <li><span style="color: var(--text-secondary);">Email:</span> <a href="mailto:mail.saltcase@gmail.com">mail.saltcase@gmail.com</a></li>
-            <li><span style="color: var(--text-secondary);">โทร:</span> <a href="tel:+66869874656">086-987-4656</a></li>
-            <li><span style="color: var(--text-secondary);">LINE:</span> <a href="https://line.me/ti/p/~Tubtimbiebers" target="_blank" rel="noopener">Tubtimbiebers</a></li>
-            <li><span style="color: var(--text-secondary);">Location:</span> กรุงเทพมหานคร, ประเทศไทย</li>
-            <li><span style="color: var(--text-secondary);">Hours:</span> จันทร์ - ศุกร์ 09:00 - 18:00 น.</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <div>© 2026 Saltcase AI Academy. All rights reserved.</div>
-        <div style="display: flex; gap: 20px;">
-          <a href="#top">Privacy Policy</a>
-          <a href="#top">Terms of Service</a>
-          <a href="#top">Security & Governance</a>
-        </div>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Quick Inquiry Modal -->
-  <div class="modal-overlay" id="inquiryModal">
-    <div class="modal-content">
-      <button class="modal-close" data-close-modal aria-label="Close modal">&times;</button>
-      <div class="eyebrow" style="margin-bottom: 8px;">Saltcase Consultation</div>
-      <h3 style="font-size: 1.5rem; color: #fff; margin-bottom: 8px;">รับการวิเคราะห์ AI Opportunity</h3>
-      <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 24px;">กรอกข้อมูลเบื้องต้นเพื่อให้ทีมที่ปรึกษาเตรียมข้อเสนอที่ตรงกับโจทย์ธุรกิจของคุณ</p>
-      
-      <form class="cta-form" onsubmit="event.preventDefault(); alert('ทีมที่ปรึกษาได้รับข้อมูลเรียบร้อยแล้ว'); document.getElementById('inquiryModal').classList.remove('active'); document.body.style.overflow='';">
-        <div class="form-group">
-          <label>ชื่อผู้ประสานงาน / ผู้บริหาร</label>
-          <input type="text" class="form-input" placeholder="คุณชื่อ..." required />
-        </div>
-        <div class="form-group">
-          <label>ชื่อบริษัท / หน่วยงาน</label>
-          <input type="text" class="form-input" placeholder="ชื่อองค์กรของคุณ" required />
-        </div>
-        <div class="form-group">
-          <label>เบอร์โทรศัพท์ / LINE ID</label>
-          <input type="text" class="form-input" placeholder="08x-xxx-xxxx" required />
-        </div>
-        <div class="form-group">
-          <label>จำนวนบุคลากรที่ต้องการพัฒนา</label>
-          <select class="form-input" style="background: #181c22; color: #fff;">
-            <option>1 - 10 ท่าน (ทีมย่อย / ผู้บริหาร)</option>
-            <option>11 - 30 ท่าน (ระดับแผนก)</option>
-            <option>30 - 100+ ท่าน (ทั้งองค์กร)</option>
-            <option>ต้องการที่ปรึกษาวางระบบ AI Workflow เฉพาะราย</option>
-          </select>
-        </div>
-        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">ส่งคำขอประเมิน</button>
-      </form>
-    </div>
-  </div>
-
-  <!-- Scripts -->
-  <script src="assets/js/main.js"></script>
-</body>
-</html>
+</BaseLayout>

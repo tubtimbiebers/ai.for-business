@@ -1,0 +1,264 @@
+---
+import BrandLogo from '../components/BrandLogo.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  path: string;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+}
+
+const {
+  title,
+  description,
+  path,
+  ogImage = '/assets/images/workshop-group.jpg',
+  ogType = 'website',
+} = Astro.props;
+
+const site = 'https://aibizcasethailand.com';
+const canonical = `${site}${path}`;
+const absoluteOgImage = ogImage.startsWith('http') ? ogImage : `${site}${ogImage}`;
+---
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href={canonical} />
+  <link rel="alternate" hreflang="th" href={canonical} />
+  <link rel="alternate" hreflang="x-default" href={canonical} />
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23552f91'/%3E%3Ctext x='50' y='68' font-size='48' font-family='sans-serif' font-weight='900' fill='%23ffffff' text-anchor='middle'%3EAI%3C/text%3E%3C/svg%3E" />
+
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content={ogType} />
+  <meta property="og:locale" content="th_TH" />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:site_name" content="AI BizCase Thailand" />
+  <meta property="og:image" content={absoluteOgImage} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={absoluteOgImage} />
+
+  <link rel="stylesheet" href="/assets/css/style.css" />
+
+  <slot name="schema" />
+</head>
+<body>
+
+  <nav class="navbar" id="navbar">
+    <div class="container navbar-inner">
+      <BrandLogo />
+
+      <ul class="nav-menu" id="primaryNavigation">
+        <li><a href="/#solutions" class="nav-link">Solutions</a></li>
+        <li><a href="/#action" class="nav-link">Real Workshop</a></li>
+        <li><a href="/#courses" class="nav-link">25 Courses</a></li>
+        <li><a href="/#diagnostic" class="nav-link">AI Diagnostic</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a class="btn btn-secondary btn-sm" href="/#courses">ดูหลักสูตร</a>
+        <a class="btn btn-primary btn-sm" href="/#contact" data-open-modal>วิเคราะห์ AI Opportunity</a>
+        <button class="mobile-toggle" id="mobileToggle" aria-label="เปิดเมนูนำทาง" aria-expanded="false" aria-controls="primaryNavigation">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <slot />
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <BrandLogo />
+          <p style="font-size: 0.88rem; line-height: 1.65; color: var(--text-secondary); margin-top: 12px;">
+            <strong>AI BizCase Thailand (by Saltcase)</strong> คือสถาบันอบรมและที่ปรึกษา AI สำหรับธุรกิจในประเทศไทย ให้บริการ Corporate AI Training, AI Business Workshop, AI Transformation และ Customized AI Training ที่ออกแบบจาก Business Process, แผนก, อุตสาหกรรม และปัญหาจริงขององค์กร
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>SOLUTIONS</h4>
+          <ul class="footer-links">
+            <li><a href="/#courses">Corporate AI Training</a></li>
+            <li><a href="/#courses">Custom AI Workflow Design</a></li>
+            <li><a href="/#courses">Document Intelligence</a></li>
+            <li><a href="/#courses">Automation & AI Agent</a></li>
+            <li><a href="/#courses">Executive Personal Branding</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>METHODOLOGY</h4>
+          <ul class="footer-links">
+            <li><a href="/#method">SALTCASE 6M™ Framework</a></li>
+            <li><a href="/#diagnostic">AI Readiness 5 Levels</a></li>
+            <li><a href="/#diagnostic">AI Business Diagnostic™ (6P)</a></li>
+            <li><a href="/#courses">Belief Shift™ Model</a></li>
+            <li><a href="/#courses">25-Course Architecture</a></li>
+            <li><a href="/blog/">Blog & Case Studies</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>CONTACT & SUPPORT</h4>
+          <ul class="footer-links">
+            <li><span style="color: var(--text-secondary);">Web:</span> <strong style="color: #fff;">AIBizCaseThailand.com</strong></li>
+            <li><span style="color: var(--text-secondary);">Email:</span> <a href="mailto:mail.saltcase@gmail.com">mail.saltcase@gmail.com</a></li>
+            <li><span style="color: var(--text-secondary);">โทร:</span> <a href="tel:+66869874656">086-987-4656</a></li>
+            <li><span style="color: var(--text-secondary);">LINE:</span> <a href="https://line.me/ti/p/~Tubtimbiebers" target="_blank" rel="noopener">Tubtimbiebers</a></li>
+            <li><span style="color: var(--text-secondary);">Location:</span> กรุงเทพมหานคร, ประเทศไทย</li>
+            <li><span style="color: var(--text-secondary);">Hours:</span> จันทร์ - ศุกร์ 09:00 - 18:00 น.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2026 AI BizCase Thailand (by Saltcase) · AIBizCaseThailand.com. All rights reserved.</div>
+        <div style="display: flex; gap: 20px;">
+          <a href="/#top">Privacy Policy</a>
+          <a href="/#top">Terms of Service</a>
+          <a href="/#top">Security & Governance</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Course Detail Modal -->
+  <div class="modal-overlay" id="courseModal" aria-hidden="true">
+    <div class="modal-content course-modal-content" role="dialog" aria-modal="true" aria-labelledby="courseModalTitle">
+      <button class="modal-close" data-close-course-modal aria-label="ปิด">&times;</button>
+
+      <div class="course-modal-header">
+        <div class="course-modal-meta">
+          <span class="course-modal-code" id="courseModalCode">01</span>
+          <span class="course-modal-track-badge" id="courseModalTrack">Foundation</span>
+          <span class="course-modal-keywords" id="courseModalKeywords">THINK / PROMPT / RESEARCH</span>
+        </div>
+        <h2 class="course-modal-title" id="courseModalTitle"></h2>
+        <p class="course-modal-tagline" id="courseModalTagline"></p>
+        <div class="course-modal-seo-tags" id="courseModalSeoTags"></div>
+      </div>
+
+      <div class="course-modal-body">
+        <!-- AEO Direct Answer: Problem & Solution -->
+        <div class="course-modal-aeo-card">
+          <div class="aeo-block pain-block">
+            <div class="aeo-label">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <span>โจทย์ & ปัญหาทางธุรกิจที่พบบ่อย (Business Pain Points)</span>
+            </div>
+            <p id="courseModalProblem" class="aeo-text"></p>
+          </div>
+          <div class="aeo-divider"></div>
+          <div class="aeo-block solution-block">
+            <div class="aeo-label">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              <span>ทำไมต้องเรียนคอร์สนี้ / AI เข้าไปเปลี่ยนระบบงานอย่างไร (AEO Direct Answer)</span>
+            </div>
+            <p id="courseModalSolution" class="aeo-text"></p>
+          </div>
+        </div>
+
+        <!-- Target Audience -->
+        <div class="course-modal-section">
+          <h4 class="modal-section-title">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            เหมาะสำหรับใครในองค์กร (Target Audience)
+          </h4>
+          <p id="courseModalAudience" class="modal-audience-text"></p>
+        </div>
+
+        <!-- Key Practical Modules -->
+        <div class="course-modal-section">
+          <h4 class="modal-section-title">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+            หัวข้อเรียนรู้และเวิร์กช็อปเชิงปฏิบัติการ (Practical Modules)
+          </h4>
+          <ul id="courseModalModules" class="modal-modules-list"></ul>
+        </div>
+
+        <!-- Workshop Output / Deliverable -->
+        <div class="course-modal-deliverable">
+          <div class="deliverable-label">✦ WORKSHOP OUTPUT — ผลงานและระบบที่นำกลับไปใช้งานได้ทันที</div>
+          <div class="deliverable-value" id="courseModalDeliverable"></div>
+        </div>
+
+        <!-- Business Outcome & ROI -->
+        <div class="course-modal-outcome">
+          <div class="outcome-label">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <span>ผลลัพธ์ทางธุรกิจ & ROI ที่วัดผลได้ (Business Impact)</span>
+          </div>
+          <p id="courseModalOutcome" class="modal-outcome-text"></p>
+        </div>
+
+        <!-- CTA Section -->
+        <div class="course-modal-cta">
+          <div class="modal-cta-note">
+            <strong>ต้องการปรับแต่งหลักสูตรนี้สำหรับองค์กรของคุณ?</strong>
+            <p>AI BizCase Thailand (by Saltcase) ออกแบบ In-house Training และ Customize จากเอกสาร กระบวนการ และปัญหาจริงของธุรกิจคุณ</p>
+          </div>
+          <div class="course-modal-cta-btns">
+            <a class="btn btn-primary" href="mailto:mail.saltcase@gmail.com" id="courseModalEmailBtn">
+              <span>ขอใบเสนอราคาหลักสูตรนี้</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </a>
+            <button class="btn btn-gold-outline" id="courseModalInquiryBtn">
+              <span>นัดหมายทีมที่ปรึกษา</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Inquiry Modal -->
+  <div class="modal-overlay" id="inquiryModal" aria-hidden="true">
+    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="inquiryModalTitle">
+      <button class="modal-close" data-close-modal aria-label="Close modal">&times;</button>
+      <div class="eyebrow" style="margin-bottom: 8px;">AI BizCase Thailand Consultation</div>
+      <h3 id="inquiryModalTitle" style="font-size: 1.5rem; color: #fff; margin-bottom: 8px;">รับการวิเคราะห์ AI Opportunity สำหรับองค์กร</h3>
+      <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 24px;">กรอกข้อมูลเบื้องต้นเพื่อให้ทีมที่ปรึกษา AI BizCase Thailand (by Saltcase) เตรียมข้อเสนอที่ตรงกับโจทย์ธุรกิจของคุณ</p>
+
+      <form class="cta-form" data-inquiry-form data-form-source="แบบฟอร์ม AI Opportunity">
+        <div class="form-group">
+          <label for="modalName">ชื่อผู้ประสานงาน / ผู้บริหาร</label>
+          <input type="text" id="modalName" name="name" class="form-input" placeholder="คุณชื่อ..." required />
+        </div>
+        <div class="form-group">
+          <label for="modalCompany">ชื่อบริษัท / หน่วยงาน</label>
+          <input type="text" id="modalCompany" name="company" class="form-input" placeholder="ชื่อองค์กรของคุณ" required />
+        </div>
+        <div class="form-group">
+          <label for="modalContact">เบอร์โทรศัพท์ / LINE ID</label>
+          <input type="text" id="modalContact" name="contact" class="form-input" placeholder="08x-xxx-xxxx" required />
+        </div>
+        <div class="form-group">
+          <label for="modalTeamSize">จำนวนบุคลากรที่ต้องการพัฒนา</label>
+          <select id="modalTeamSize" name="interest" class="form-input" style="background: #181c22; color: #fff;">
+            <option>1 - 10 ท่าน (ทีมย่อย / ผู้บริหาร)</option>
+            <option>11 - 30 ท่าน (ระดับแผนก)</option>
+            <option>30 - 100+ ท่าน (ทั้งองค์กร)</option>
+            <option>ต้องการที่ปรึกษาวางระบบ AI Workflow เฉพาะราย</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">เปิดอีเมลเพื่อส่งคำขอ</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="/assets/js/main.js" is:inline></script>
+</body>
+</html>

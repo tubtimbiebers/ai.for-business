@@ -1,0 +1,63 @@
+---
+interface Props {
+  id: number;
+  title: string;
+  track: string;
+  desc: string;
+  deliverable: string;
+  tagline?: string;
+  aeoProblem?: string;
+  aeoSolution?: string;
+  targetAudience?: string;
+  keyModules?: string[];
+  businessOutcome?: string;
+  seoKeywords?: string[];
+}
+
+const { id, title, track, desc, deliverable } = Astro.props;
+const code = String(id).padStart(2, '0');
+const keywords: Record<string, string> = {
+  Foundation: 'THINK / PROMPT / RESEARCH',
+  Productivity: 'FLOW / DATA / AUTOMATE',
+  Growth: 'MARKET / SALES / SCALE',
+  Department: 'TEAM / SYSTEM / TRANSFORM',
+  Authority: 'VOICE / TRUST / LEAD',
+};
+const trackDesc: Record<string, string> = {
+  Foundation: 'กลุ่มหลักสูตรสร้างฐานความคิดและทักษะ AI ที่ถูกต้องและปลอดภัย ก่อนนำไปใช้งานจริงในองค์กร',
+  Productivity: 'กลุ่มหลักสูตรเพิ่มประสิทธิภาพงานประจำวัน ลดขั้นตอนซ้ำซ้อน และเชื่อม AI เข้ากับ Workflow ของทีม',
+  Growth: 'กลุ่มหลักสูตรขับเคลื่อนการเติบโตทางธุรกิจ ตั้งแต่ Marketing, Sales ไปจนถึง Customer Experience',
+  Department: 'กลุ่มหลักสูตรเฉพาะทางแยกตามแผนก ออกแบบให้ตรงกับงานจริงของแต่ละฟังก์ชันในองค์กร',
+  Authority: 'กลุ่มหลักสูตรสร้าง Personal Brand และ Thought Leadership ของผู้บริหารบนโลกดิจิทัล',
+};
+---
+<article
+  class={`course-item-card course-poster poster-${track}`}
+  data-track={track}
+  data-course-id={id}
+  data-course-title={title}
+  data-course-track={track}
+  data-course-keywords={keywords[track]}
+  data-course-desc={desc}
+  data-course-deliverable={deliverable}
+  data-course-track-desc={trackDesc[track]}
+  role="button"
+  tabindex="0"
+  aria-label={`อ่านรายละเอียดคอร์ส ${title}`}
+  style="cursor: pointer;"
+>
+  <header class="poster-meta">
+    <span class="course-code">{code}</span>
+    <span class={`course-track-badge badge-${track}`}>{track}</span>
+  </header>
+  <div class="poster-body">
+    <span class="poster-keywords">{keywords[track]}</span>
+    <h3>{title}</h3>
+    <p>{desc}</p>
+  </div>
+  <footer class="course-takehome">
+    <strong>WORKSHOP OUTPUT</strong>
+    <span>{deliverable}</span>
+  </footer>
+  <div class="poster-read-more">อ่านรายละเอียด →</div>
+</article>

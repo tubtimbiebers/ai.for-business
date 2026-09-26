@@ -1,0 +1,26 @@
+{
+  "name": "saltcase-ai-academy",
+  "version": "1.0.0",
+  "description": "Marketing website for Saltcase — a corporate AI training and consulting brand (\"AI Academy for Business\").",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tubtimbiebers/ai.for-business.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tubtimbiebers/ai.for-business/issues"
+  },
+  "homepage": "https://github.com/tubtimbiebers/ai.for-business#readme",
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
+    "astro": "^7.3.5"
+  }
+}

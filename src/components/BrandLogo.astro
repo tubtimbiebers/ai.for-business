@@ -1,0 +1,19 @@
+---
+interface Props {
+  compact?: boolean;
+}
+
+const { compact = false } = Astro.props;
+---
+<a class:list={['brand-logo', { compact }]} href="/#top" aria-label="AI BizCase Thailand (by Saltcase) หน้าแรก">
+  <div class="brand-title">
+    <strong style="font-weight: 900; letter-spacing: -0.02em; font-size: clamp(1.05rem, 1.4vw, 1.25rem); color: #552f91; line-height: 1.1; display: flex; align-items: baseline; gap: 4px;">
+      <span>AI BIZCASE</span>
+      <span style="color: #d34bcb;">THAILAND</span>
+      <span style="font-size: 0.72em; opacity: 0.65; font-weight: 700; color: #552f91;">.com</span>
+    </strong>
+    <span style="font-size: 0.68rem; letter-spacing: 0.08em; color: #7e7788; text-transform: uppercase; font-weight: 700; margin-top: 3px; display: block;">
+      AI Academy for Business · by Saltcase
+    </span>
+  </div>
+</a>

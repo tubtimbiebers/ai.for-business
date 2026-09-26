@@ -1,0 +1,55 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.datePublished.valueOf() - a.data.datePublished.valueOf()
+);
+
+const title = 'บทความ AI สำหรับธุรกิจ | AI BizCase Thailand';
+const description = 'บทความเจาะลึกเรื่อง AI Workflow, การเลือกเครื่องมือ AI สำหรับองค์กร และแนวทาง Transform ธุรกิจด้วย AI จาก AI BizCase Thailand (by Saltcase)';
+
+const blogSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Blog',
+  name: 'AI BizCase Thailand Blog',
+  url: 'https://aibizcasethailand.com/blog/',
+  publisher: { '@type': 'Organization', name: 'AI BizCase Thailand', url: 'https://aibizcasethailand.com/' },
+  blogPost: posts.map((p) => ({
+    '@type': 'BlogPosting',
+    headline: p.data.title,
+    url: `https://aibizcasethailand.com/blog/${p.id}/`,
+  })),
+};
+---
+<BaseLayout title={title} description={description} path="/blog/">
+  <Fragment slot="schema">
+    <script type="application/ld+json" set:html={JSON.stringify(blogSchema)} />
+  </Fragment>
+
+  <header class="article-hero">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a> / <span>Blog</span>
+      </nav>
+      <div class="eyebrow">AI BizCase Insights</div>
+      <h1>บทความ AI สำหรับธุรกิจ</h1>
+      <p class="article-lede">แนวคิด กรอบการทำงาน และคำแนะนำเชิงลึกเรื่อง AI Workflow, การเลือกเครื่องมือ AI และการ Transform องค์กรด้วย AI จากประสบการณ์จริงของทีม AI BizCase Thailand (by Saltcase)</p>
+    </div>
+  </header>
+
+  <section class="section-padding" style="padding-top: 20px;">
+    <div class="container">
+      <div class="blog-list-grid">
+        {posts.map((post) => (
+          <article class="blog-card">
+            <span class="article-date">{post.data.eyebrow}</span>
+            <h2><a href={`/blog/${post.id}/`}>{post.data.title}</a></h2>
+            <p>{post.data.description}</p>
+            <a class="read-more" href={`/blog/${post.id}/`}>อ่านต่อ →</a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
