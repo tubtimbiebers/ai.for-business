@@ -145,7 +145,7 @@ export const COURSES_DATA: CourseData[] = [
   },
   {
     id: 8,
-    title: 'AI Automation for Business',
+    title: 'AI for Logistics Business',
     track: 'Productivity',
     tagline: 'เชื่อมต่อ AI และ No-Code เข้ากับระบบงานเดิม: ส่งต่อข้อมูลอัตโนมัติ ลดงานคีย์ซ้ำซาก',
     desc: 'เชื่อม Forms, Sheets, Calendar, LINE, No-code และ AI เพื่อลดงานส่งต่อ',
@@ -159,7 +159,7 @@ export const COURSES_DATA: CourseData[] = [
     ],
     deliverable: 'Working AI Automation Prototype + แผนผังระบบ Automation Roadmap ขององค์กร',
     businessOutcome: 'ลดงานคีย์ข้อมูลและงานส่งต่อซ้ำซ้อนเหลือ 0% ระบบทำงานตลอด 24 ชั่วโมง ข้อมูลถูกต้องและอัปเดตแบบเรียลไทม์',
-    seoKeywords: ['AI Automation for Business', 'AI Transformation', 'No-Code AI Automation', 'อบรม AI องค์กร']
+    seoKeywords: ['AI for Logistics Business', 'AI Logistics', 'AI Supply Chain', 'AI Automation for Business', 'อบรม AI โลจิสติกส์', 'อบรม AI องค์กร']
   },
   {
     id: 9,

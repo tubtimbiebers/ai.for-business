@@ -2807,3 +2807,284 @@ html,body { background: #f7f3ea; color: #211a2b; }
     width: 100%;
   }
 }
+
+/* ============================================================
+   AI BizCase Thailand — brand layer (from the logo)
+   Logo elements reused across the UI:
+   - clover blob, lavender → pink gradient  → section/hero decor, CTA, highlights
+   - deep purple circle                     → primary action color, dots
+   - translucent peach triangle             → secondary accent shape
+   - black wordmark + thin vertical divider → ink headings, kicker rule
+   ============================================================ */
+:root {
+  --ab-lavender: #b6c0fe;
+  --ab-pink: #fbbce6;
+  --ab-purple: #651e98;
+  --ab-purple-deep: #4a1272;
+  --ab-peach: #e3a08e;
+  --ab-ink: #120e18;
+  --ab-ink-soft: #5c5568;
+  --ab-tint-lavender: #f5f6ff;
+  --ab-tint-pink: #fff6fb;
+  --ab-line: #e6e2f2;
+  --ab-grad: linear-gradient(90deg, var(--ab-lavender) 0%, var(--ab-pink) 100%);
+  --ab-grad-soft: linear-gradient(90deg, #eceffe 0%, #fdeaf6 100%);
+  --ab-clover: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cpath d='M100 20C124 0 164 0 182 18s18 58-2 82c20 24 20 64 2 82s-58 18-82-2c-24 20-64 20-82 2S0 124 20 100C0 76 0 36 18 18S76 0 100 20Z'/%3E%3C/svg%3E");
+  --ab-triangle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 100'%3E%3Cpath d='M12 26 96 6c10-2 16 8 11 16L80 86c-5 11-17 12-24 3L5 43c-6-7-2-15 7-17Z'/%3E%3C/svg%3E");
+
+  /* retarget the existing tokens so older rules follow the brand */
+  --brand-purple: var(--ab-purple);
+  --brand-purple-deep: var(--ab-purple-deep);
+  --brand-magenta: #8b4fc0;
+  --brand-lilac: var(--ab-lavender);
+  --accent-gold: var(--ab-purple);
+  --accent-gold-light: #8b4fc0;
+  --text-primary: var(--ab-ink);
+  --text-dark: var(--ab-ink);
+  --text-secondary: var(--ab-ink-soft);
+  --border-subtle: var(--ab-line);
+  --border-accent: #d4c6ea;
+  --shadow-gold: 0 10px 28px rgba(101, 30, 152, .22);
+}
+
+::selection { background: var(--ab-pink); color: var(--ab-ink); }
+:focus-visible { outline: 2px solid var(--ab-purple); outline-offset: 3px; }
+html, body { background: #fcfbff; color: var(--ab-ink); }
+
+/* Logo */
+.brand-logo--ab { display: block; flex-shrink: 0; line-height: 0; }
+.brand-logo--ab img { display: block; width: clamp(128px, 11vw, 152px); height: auto; }
+.footer .brand-logo--ab img { width: 220px; }
+
+/* Navbar: white like the logo canvas, gradient hairline underneath */
+.navbar { background: rgba(255, 255, 255, .92); border-bottom: 0; }
+.navbar::after { content: ''; position: absolute; inset: auto 0 0; height: 2px; background: var(--ab-grad); opacity: .85; }
+.nav-menu.is-open { background: #fff; }
+.navbar .nav-link, .navbar .btn-secondary { color: var(--ab-ink); }
+.navbar .nav-link:hover, .navbar .nav-link.active { color: var(--ab-purple); }
+
+/* Headings take the wordmark's ink; highlight = gradient marker from the blob */
+.section-title, .section-head h2, .cta-banner h2, .coach-hero h1 { color: var(--ab-ink); }
+.gradient-text {
+  color: var(--ab-purple);
+  -webkit-text-fill-color: var(--ab-purple);
+  background: var(--ab-grad) no-repeat 0 92% / 100% .3em;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  padding-inline: .04em;
+}
+
+/* Eyebrow: soft gradient pill + mini clover mark instead of the dot */
+.eyebrow {
+  color: var(--ab-purple);
+  background: var(--ab-grad-soft);
+  border: 1px solid #e4dcf3;
+}
+.eyebrow::before {
+  width: 14px;
+  height: 14px;
+  border-radius: 0;
+  box-shadow: none;
+  background: url('/assets/images/aibizcase-mark.svg') center / contain no-repeat;
+}
+.coach-kicker { display: inline-flex; align-items: center; gap: 12px; color: var(--ab-ink-soft); }
+.coach-kicker::before { content: ''; width: 2px; height: 1.6em; background: var(--ab-ink); } /* logo divider */
+
+/* Buttons: logo circle purple */
+.btn-primary, .coach-hero .btn-primary { background: var(--ab-purple); background-image: none; color: #fff; }
+.btn-primary:hover, .coach-hero .btn-primary:hover { background: var(--ab-purple-deep); box-shadow: 0 12px 30px rgba(101, 30, 152, .3); filter: none; }
+.btn-gold-outline { color: var(--ab-purple); border-color: #cdbde6; background: #fff; }
+.btn-gold-outline:hover { background: var(--ab-tint-lavender); border-color: var(--ab-purple); }
+.coach-text-link { color: var(--ab-purple); }
+
+/* Section rhythm: alternating lavender / pink tints, clover decor in the corner */
+.section-padding { position: relative; overflow-x: clip; background-color: #fff; }
+#solutions, #courses, #authority, #diagnostic { background-color: var(--ab-tint-lavender) !important; }
+#action, #method, #faq { background-color: var(--ab-tint-pink) !important; }
+.dark-pillars-section { background: #fff; border-color: var(--ab-line); }
+.section-padding::before {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  top: 56px;
+  right: -90px;
+  width: 260px;
+  aspect-ratio: 1;
+  background: var(--ab-grad);
+  -webkit-mask: var(--ab-clover) center / contain no-repeat;
+  mask: var(--ab-clover) center / contain no-repeat;
+  opacity: .32;
+  pointer-events: none;
+}
+.section-padding:nth-of-type(even)::before { right: auto; left: -110px; top: auto; bottom: 48px; }
+.section-padding::after {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  top: 150px;
+  right: 120px;
+  width: 22px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--ab-purple);
+  opacity: .9;
+  pointer-events: none;
+}
+.section-padding:nth-of-type(even)::after {
+  right: auto;
+  left: 90px;
+  top: auto;
+  bottom: 220px;
+  width: 34px;
+  border-radius: 0;
+  aspect-ratio: 1.2;
+  background: var(--ab-peach);
+  opacity: .75;
+  -webkit-mask: var(--ab-triangle) center / contain no-repeat;
+  mask: var(--ab-triangle) center / contain no-repeat;
+}
+.section-padding > .container { position: relative; z-index: 1; }
+
+/* Cards: gradient cap from the logo blob on hover */
+.gallery-card, .problem-card, .pillar-card, .method-card, .engine-card,
+.course-poster, .diagnostic-container, .readiness-card, .belief-flow-card,
+.case-standard-card, .quote-panel, .blog-card, .diag-card {
+  border-color: var(--ab-line);
+  box-shadow: 0 6px 20px rgba(101, 30, 152, .06);
+}
+.pillar-card:hover, .problem-card:hover, .method-card:hover, .course-poster:hover,
+.case-standard-card:hover, .engine-card:hover, .blog-card:hover {
+  background: var(--ab-grad) top / 100% 4px no-repeat, #fff;
+  border-color: #cdbde6;
+  box-shadow: 0 18px 40px rgba(101, 30, 152, .12);
+}
+.course-poster .course-code, .course-poster .course-takehome strong { color: var(--ab-purple); }
+.course-poster .course-track-badge, .poster-keywords { color: #8b4fc0; }
+.course-poster::after { color: rgba(101, 30, 152, .05); }
+.quote-panel { border-left: 0; background: var(--ab-grad) left / 5px 100% no-repeat, #fff; }
+.flow-badge-item, .system-flow-item, .gallery-tag-item { background: var(--ab-tint-lavender); border-color: #e1defa; color: var(--ab-ink-soft); }
+.photo-overlay-tag, .gallery-badge { background: var(--ab-purple); color: #fff; }
+.tab-btn:hover { color: var(--ab-purple); }
+.form-group label { color: var(--ab-purple); }
+.form-input:focus { border-color: var(--ab-purple); box-shadow: 0 0 0 3px rgba(182, 192, 254, .5); }
+
+/* Hero: logo shapes floating around the stage */
+.ab-hero-shapes {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: calc(1 - var(--hero-progress, 0) * 1.6);
+}
+.ab-shape { position: absolute; display: block; }
+.ab-shape--blob {
+  top: 96px;
+  left: -70px;
+  width: clamp(200px, 22vw, 320px);
+  aspect-ratio: 1;
+  background: var(--ab-grad);
+  -webkit-mask: var(--ab-clover) center / contain no-repeat;
+  mask: var(--ab-clover) center / contain no-repeat;
+  opacity: .55;
+  animation: abFloat 12s ease-in-out infinite;
+}
+.ab-shape--dot {
+  right: 7vw;
+  top: 120px;
+  width: clamp(36px, 3.4vw, 56px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--ab-purple);
+  animation: abFloat 9s ease-in-out infinite reverse;
+}
+.ab-shape--tri {
+  right: calc(7vw + 26px);
+  top: 150px;
+  width: clamp(54px, 5vw, 82px);
+  aspect-ratio: 1.2;
+  background: var(--ab-peach);
+  opacity: .78;
+  -webkit-mask: var(--ab-triangle) center / contain no-repeat;
+  mask: var(--ab-triangle) center / contain no-repeat;
+  animation: abFloat 10s ease-in-out infinite;
+}
+@keyframes abFloat {
+  0%, 100% { transform: translate(0, 0) rotate(0); }
+  50% { transform: translate(6px, -12px) rotate(4deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ab-shape { animation: none; }
+}
+.coach-hero-quicknav a:hover { background: var(--ab-purple); }
+.coach-scroll-cue i { background: linear-gradient(var(--ab-purple), transparent); }
+
+/* CTA: the logo blob as a banner */
+.cta-section { background: #fcfbff; }
+.cta-banner {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--ab-grad);
+  border: 0;
+  box-shadow: 0 30px 70px rgba(101, 30, 152, .16);
+}
+.cta-banner::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  right: 34%;
+  top: -60px;
+  width: 150px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--ab-purple);
+  opacity: .14;
+}
+.cta-banner::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  left: -40px;
+  bottom: -70px;
+  width: 240px;
+  aspect-ratio: 1.2;
+  background: var(--ab-peach);
+  opacity: .28;
+  -webkit-mask: var(--ab-triangle) center / contain no-repeat;
+  mask: var(--ab-triangle) center / contain no-repeat;
+}
+.cta-banner h2 { color: var(--ab-ink); }
+.cta-banner p { color: #3d3647; }
+.cta-banner .eyebrow { background: rgba(255, 255, 255, .65); border-color: rgba(255, 255, 255, .8); }
+.cta-form-container { background: rgba(255, 255, 255, .94); border-color: rgba(255, 255, 255, .9); box-shadow: 0 16px 40px rgba(101, 30, 152, .12); }
+
+/* Footer */
+.footer { position: relative; background: var(--ab-tint-lavender); border-top: 0; }
+.footer::before { content: ''; position: absolute; inset: 0 0 auto; height: 4px; background: var(--ab-grad); }
+.footer-col h4 { color: var(--ab-ink); }
+.footer-links a:hover { color: var(--ab-purple); }
+.footer-bottom { border-color: var(--ab-line); }
+
+/* Course modal (stays dark) — brand accents */
+.course-modal-content { border-color: rgba(182, 192, 254, .35); }
+.course-modal-header { background: linear-gradient(90deg, rgba(182, 192, 254, .2) 0%, rgba(251, 188, 230, .16) 100%); border-bottom-color: rgba(182, 192, 254, .25); }
+.course-modal-code, .modal-section-title { color: var(--ab-lavender); }
+.course-modal-track-badge, .seo-tag-pill { background: rgba(101, 30, 152, .45); border-color: rgba(182, 192, 254, .35); color: #eef0ff; }
+.modal-modules-list li::before { color: var(--ab-pink); }
+.course-modal-deliverable { background: linear-gradient(90deg, rgba(182, 192, 254, .16), rgba(251, 188, 230, .14)); border-color: rgba(182, 192, 254, .35); }
+.deliverable-label { color: var(--ab-pink); }
+.poster-read-more { color: var(--ab-purple); }
+
+@media (max-width: 768px) {
+  .brand-logo--ab img { width: 118px; }
+  .section-padding::before { width: 160px; right: -70px; }
+  .section-padding:nth-of-type(even)::before { left: -80px; }
+  .section-padding::after { right: 32px; top: 40px; }
+  .section-padding:nth-of-type(even)::after { left: 24px; bottom: 40px; }
+  .ab-shape--blob { left: -90px; top: 80px; opacity: .4; }
+  .ab-shape--dot { top: 64px; right: 20px; width: 30px; }
+  .ab-shape--tri { top: 78px; right: 38px; width: 44px; }
+  .cta-banner::before { right: -40px; }
+}

@@ -26,7 +26,7 @@ const READINESS_DATA = {
     level: '04 Integrate (เชื่อมระบบและ Governance)',
     summary: 'องค์กรเริ่มเชื่อมโยง AI กับ Database, CRM หรือระบบภายใน ต้องการระบบ Governance และ Automation ไร้รอยต่อ',
     recommendation: 'แนะนำจัดทำ: Automation Architecture & Data Security Governance พร้อม Training Lab ระดับองค์กร',
-    suggestedCourses: ['08 · AI Automation for Business', '09 · AI Data Analysis Dashboard', '16 · Executive AI Playbook']
+    suggestedCourses: ['08 · AI for Logistics Business', '09 · AI Data Analysis Dashboard', '16 · Executive AI Playbook']
   },
   5: {
     level: '05 AI-Enabled Business (ขับเคลื่อนธุรกิจด้วย AI)',

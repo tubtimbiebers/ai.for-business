@@ -33,7 +33,8 @@ const absoluteOgImage = ogImage.startsWith('http') ? ogImage : `${site}${ogImage
   <link rel="alternate" hreflang="th" href={canonical} />
   <link rel="alternate" hreflang="x-default" href={canonical} />
 
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23552f91'/%3E%3Ctext x='50' y='68' font-size='48' font-family='sans-serif' font-weight='900' fill='%23ffffff' text-anchor='middle'%3EAI%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" type="image/svg+xml" href="/assets/images/aibizcase-mark.svg" />
+  <meta name="theme-color" content="#651E98" />
 
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
@@ -114,7 +115,7 @@ const absoluteOgImage = ogImage.startsWith('http') ? ogImage : `${site}${ogImage
         <div class="footer-col">
           <h4>CONTACT & SUPPORT</h4>
           <ul class="footer-links">
-            <li><span style="color: var(--text-secondary);">Web:</span> <strong style="color: #fff;">AIBizCaseThailand.com</strong></li>
+            <li><span style="color: var(--text-secondary);">Web:</span> <strong style="color: var(--text-primary);">AIBizCaseThailand.com</strong></li>
             <li><span style="color: var(--text-secondary);">Email:</span> <a href="mailto:mail.saltcase@gmail.com">mail.saltcase@gmail.com</a></li>
             <li><span style="color: var(--text-secondary);">โทร:</span> <a href="tel:+66869874656">086-987-4656</a></li>
             <li><span style="color: var(--text-secondary);">LINE:</span> <a href="https://line.me/ti/p/~Tubtimbiebers" target="_blank" rel="noopener">Tubtimbiebers</a></li>
@@ -247,7 +248,7 @@ const absoluteOgImage = ogImage.startsWith('http') ? ogImage : `${site}${ogImage
         </div>
         <div class="form-group">
           <label for="modalTeamSize">จำนวนบุคลากรที่ต้องการพัฒนา</label>
-          <select id="modalTeamSize" name="interest" class="form-input" style="background: #181c22; color: #fff;">
+          <select id="modalTeamSize" name="interest" class="form-input">
             <option>1 - 10 ท่าน (ทีมย่อย / ผู้บริหาร)</option>
             <option>11 - 30 ท่าน (ระดับแผนก)</option>
             <option>30 - 100+ ท่าน (ทั้งองค์กร)</option>
