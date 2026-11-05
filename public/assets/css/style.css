@@ -2183,7 +2183,7 @@ button, input, select, textarea {
 }
 
 /* Interactive behavior adapted from ScrollExpandMedia */
-.coach-hero--simple[data-scroll-expand-hero] { --hero-progress: 0; height: 180svh; min-height: 1280px; overflow: visible; }
+.coach-hero--simple[data-scroll-expand-hero] { --hero-progress: 0; height: 245svh; min-height: 1760px; overflow: visible; }
 .coach-hero--simple[data-scroll-expand-hero] .coach-hero-stage { position: sticky; top: 0; height: 100svh; min-height: 720px; }
 .coach-hero--simple[data-scroll-expand-hero] .coach-hero-media {
   transform: scale(calc(.86 + var(--hero-progress) * .2));

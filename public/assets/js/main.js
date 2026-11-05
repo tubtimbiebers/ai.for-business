@@ -44,8 +44,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const updateHeroProgress = () => {
       const rect = scrollHero.getBoundingClientRect();
-      const scrollableDistance = Math.max(scrollHero.offsetHeight - window.innerHeight, 1);
-      const progress = Math.min(Math.max(-rect.top / scrollableDistance, 0), 1);
+      // Hold the hero still for the first ~45% of a viewport of scrolling, then
+      // ease the expand in (smoothstep) so it doesn't jump on the first wheel tick.
+      const hold = window.innerHeight * 0.45;
+      const scrollableDistance = Math.max(scrollHero.offsetHeight - window.innerHeight - hold, 1);
+      const linear = Math.min(Math.max((-rect.top - hold) / scrollableDistance, 0), 1);
+      const progress = linear * linear * (3 - 2 * linear);
       scrollHero.style.setProperty('--hero-progress', progress.toFixed(3));
       scrollHero.dataset.heroExpanded = progress > 0.64 ? 'true' : 'false';
       ticking = false;
