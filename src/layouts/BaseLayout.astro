@@ -20,6 +20,8 @@ const {
 const site = 'https://aibizcasethailand.com';
 const canonical = `${site}${path}`;
 const absoluteOgImage = ogImage.startsWith('http') ? ogImage : `${site}${ogImage}`;
+// Changes on every build so browsers (esp. mobile) fetch fresh CSS/JS after each deploy
+const assetVersion = Date.now().toString(36);
 ---
 <!doctype html>
 <html lang="th">
@@ -48,7 +50,7 @@ const absoluteOgImage = ogImage.startsWith('http') ? ogImage : `${site}${ogImage
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content={absoluteOgImage} />
 
-  <link rel="stylesheet" href="/assets/css/style.css" />
+  <link rel="stylesheet" href={`/assets/css/style.css?v=${assetVersion}`} />
 
   <slot name="schema" />
 </head>
@@ -260,6 +262,6 @@ const absoluteOgImage = ogImage.startsWith('http') ? ogImage : `${site}${ogImage
     </div>
   </div>
 
-  <script src="/assets/js/main.js" is:inline></script>
+  <script src={`/assets/js/main.js?v=${assetVersion}`} is:inline></script>
 </body>
 </html>
