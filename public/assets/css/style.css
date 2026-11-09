@@ -3106,6 +3106,22 @@ html, body { background: #fcfbff; color: var(--ab-ink); }
   .mobile-toggle { display: flex; }
 }
 
+/* Desktop/laptop: keep the copy inside the photo frame. The frame is inset
+   2vw and scaled to .86 from centre, so its left edge sits at ~8.72vw. On
+   ~1100–1500px screens the 1240px container hugs the viewport edge and the
+   copy fell outside the frame; push it in only as much as needed. */
+@media (min-width: 1025px) {
+  .coach-hero--simple .coach-hero-copy {
+    width: min(640px, 44vw);
+    margin-left: max(0px, calc(8.72vw + clamp(40px, 4vw, 80px) - max(24px, (100vw - 1240px) / 2)));
+  }
+  .coach-hero--simple h1 { font-size: clamp(2.9rem, 4.3vw, 5.6rem); }
+  .hero-headline--th { font-size: clamp(2.5rem, 3.7vw, 4.6rem) !important; }
+  .hero-headline-loop { min-height: clamp(116px, 9.4vw, 190px); }
+  .coach-hero--simple .coach-hero-copy > p { max-width: min(540px, 36vw); }
+  .hero-training-loop { opacity: .1; }
+}
+
 /* Speaker name badge: only shown in the mobile/tablet layout */
 .coach-hero-namecard { display: none; }
 
