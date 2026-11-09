@@ -3088,3 +3088,78 @@ html, body { background: #fcfbff; color: var(--ab-ink); }
   .ab-shape--tri { top: 78px; right: 38px; width: 44px; }
   .cta-banner::before { right: -40px; }
 }
+
+/* Tablet: the full nav row doesn't fit, so use the mobile hamburger menu */
+@media (max-width: 1024px) {
+  .nav-menu, .nav-actions .btn { display: none; }
+  .nav-menu.is-open {
+    display: flex;
+    position: absolute;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    padding: 24px;
+    flex-direction: column;
+    background: #fff;
+    border-bottom: 1px solid #d8cee4;
+  }
+  .mobile-toggle { display: flex; }
+}
+
+/* Hero on tablet + mobile: stack copy above a crisp, full-opacity photo instead
+   of washing the photo out behind the text (desktop layout is unchanged). */
+@media (max-width: 1024px) {
+  .coach-hero.coach-hero--simple[data-scroll-expand-hero] { height: auto; min-height: 0; overflow: hidden; }
+  .coach-hero--simple[data-scroll-expand-hero] .coach-hero-stage {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-height: 0;
+    padding: 112px 0 40px;
+  }
+  .coach-hero--simple .coach-hero-inner { order: 1; height: auto; padding-top: 0; align-items: flex-start; }
+  .coach-hero--simple .coach-hero-copy { width: 100%; max-width: 720px; }
+  .coach-hero--simple[data-scroll-expand-hero] .coach-hero-media {
+    order: 2;
+    position: relative;
+    inset: auto;
+    z-index: 2;
+    width: calc(100% - 64px);
+    margin: 36px auto 0;
+    aspect-ratio: 4 / 3;
+    border-radius: 24px;
+    transform: none;
+    box-shadow: 0 18px 48px rgba(62,31,114,.14);
+  }
+  .coach-hero--simple .coach-hero-media::after { display: none; }
+  .coach-hero--simple[data-scroll-expand-hero] .coach-hero-image {
+    opacity: 1;
+    object-fit: cover;
+    object-position: 88% top;
+    transform: none;
+    transition: none;
+  }
+  .hero-training-loop { display: none; }
+  .coach-hero--simple[data-scroll-expand-hero] h1 { opacity: 1; }
+  .coach-hero--simple[data-scroll-expand-hero] h1 span,
+  .coach-hero--simple[data-scroll-expand-hero] h1 em { transform: none; }
+  .coach-hero--simple[data-scroll-expand-hero] .coach-kicker,
+  .coach-hero--simple[data-scroll-expand-hero] .coach-hero-copy > p,
+  .coach-hero--simple[data-scroll-expand-hero] .coach-hero-actions { opacity: 1; transform: none; }
+  .coach-hero--simple .ab-hero-shapes { opacity: 1; }
+  .coach-scroll-cue,
+  .coach-expanded-statement,
+  .coach-hero-quicknav { display: none; }
+}
+
+@media (max-width: 640px) {
+  .coach-hero--simple[data-scroll-expand-hero] .coach-hero-stage { padding: 104px 0 32px; }
+  .coach-hero--simple[data-scroll-expand-hero] .coach-hero-media {
+    width: calc(100% - 32px);
+    margin-top: 28px;
+    aspect-ratio: 4 / 5;
+    border-radius: 20px;
+  }
+  .coach-hero--simple[data-scroll-expand-hero] .coach-hero-image { object-position: 84% top; }
+}
